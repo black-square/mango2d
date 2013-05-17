@@ -4,17 +4,16 @@
 
 //==============================================================================
 void CApp::OnRender() {
-	CSurface::OnDraw(Surf_Display, Surf_Grid, 0, 0);
+	Draw(Surf_Display, Surf_Grid, point_t(0, 0));
 
     for(int i = 0;i < 9;i++) {
-        int X = (i % 3) * 200;
-        int Y = (i / 3) * 200;
+        const point_t pt ( (i % 3) * 200, (i / 3) * 200 ); 
 
         if(Grid[i] == GRID_TYPE_X) {
-            CSurface::OnDraw(Surf_Display, Surf_X, X, Y);
+            Draw(Surf_Display, Surf_X, pt );
         }else
         if(Grid[i] == GRID_TYPE_O) {
-            CSurface::OnDraw(Surf_Display, Surf_O, X, Y);
+            Draw(Surf_Display, Surf_O, pt );
         }
     }
 

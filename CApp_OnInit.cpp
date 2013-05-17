@@ -12,20 +12,9 @@ bool CApp::OnInit() {
         return false;
     }
 
-    if((Surf_Grid = CSurface::OnLoad("./gfx/grid.bmp")) == NULL) {
-        return false;
-    }
-
-    if((Surf_X = CSurface::OnLoad("./gfx/x.bmp")) == NULL) {
-        return false;
-    }
-
-    if((Surf_O = CSurface::OnLoad("./gfx/o.bmp")) == NULL) {
-        return false;
-    }
-
-    CSurface::Transparent(Surf_X, 255, 0, 255);
-    CSurface::Transparent(Surf_O, 255, 0, 255);
+    Surf_Grid.Load("./gfx/grid.bmp");
+    Surf_X.Load( "./gfx/x.bmp", Color::make_magenta() );
+    Surf_O.Load( "./gfx/o.bmp", Color::make_magenta() );
 
     Reset();
 

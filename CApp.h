@@ -1,13 +1,12 @@
-//==============================================================================
-// SDL Tutorial 1
-//==============================================================================
+
 #ifndef _CAPP_H_
-    #define _CAPP_H_
+#define _CAPP_H_
 
 #include <SDL.h>
 
+
 #include "CEvent.h"
-#include "CSurface.h"
+#include "Texture.h"
 
 //==============================================================================
 class CApp : public CEvent {
@@ -17,10 +16,10 @@ class CApp : public CEvent {
         SDL_Surface*    Surf_Display;
 
     private:
-        SDL_Surface*    Surf_Grid;
+        Texture  Surf_Grid;
 
-        SDL_Surface*	Surf_X;
-        SDL_Surface*	Surf_O;
+        Texture	Surf_X;
+        Texture	Surf_O;
 
     private:
         int		        Grid[9];
