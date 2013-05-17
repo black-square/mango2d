@@ -12,7 +12,11 @@ public:
   void Load( const char *szFile );
   void Load( const char *szFile, const Color &transpColor );
 
+  point_t GetSize() const; 
+
   friend void Draw( SDL_Surface *pDest, const Texture &tex, point_t pos );
+
+
 
 private:
   SDL_Surface *m_pSurf; 

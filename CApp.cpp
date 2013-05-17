@@ -3,7 +3,7 @@
 #include "CApp.h"
 
 //==============================================================================
-CApp::CApp() {
+CApp::CApp(): m_fieldRender(m_field) {
     CurrentPlayer = 0;
 
     Surf_Display = NULL;

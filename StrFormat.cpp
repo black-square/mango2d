@@ -39,6 +39,7 @@ static void TerminateApp()
   std::exit( -42 );
 }
 
+
 template<class MsgT>
 void LogFatalImpl( const MsgT &msg )
 {

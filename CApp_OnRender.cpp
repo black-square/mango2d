@@ -17,6 +17,9 @@ void CApp::OnRender() {
         }
     }
 
+  Draw(Surf_Display, background, point_t(0, 0));
+  m_fieldRender.Render( Surf_Display, point_t(340, 110) );
+
 	SDL_Flip(Surf_Display);
 }
 

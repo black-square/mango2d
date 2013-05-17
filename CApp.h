@@ -7,6 +7,8 @@
 
 #include "CEvent.h"
 #include "Texture.h"
+#include "GameField.h"
+#include "GameFieldRender.h"
 
 //==============================================================================
 class CApp : public CEvent {
@@ -20,6 +22,9 @@ class CApp : public CEvent {
 
         Texture	Surf_X;
         Texture	Surf_O;
+        Texture	background;
+        GameField m_field;
+        GameFieldRender m_fieldRender;
 
     private:
         int		        Grid[9];
