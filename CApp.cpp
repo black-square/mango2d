@@ -2,6 +2,13 @@
 #include "stdafx.h"
 #include "CApp.h"
 
+CApp::CApp() : 
+  m_fieldRender(m_field), Surf_Display(NULL), Running(true), m_state(0)
+{
+
+}
+//////////////////////////////////////////////////////////////////////////
+
 bool CApp::OnInit() 
 {
   if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -43,13 +50,51 @@ void CApp::OnLButtonDown(int mX, int mY)
 {
   m_prevCellPos = m_fieldRender.GetGemPos( point_t(mX, mY) );
 
-  if( !m_prevCellPos )
-    if( !m_logic.DestroyMatched(m_field) )
-    {
-      m_field.Clear();
-      m_logic.FillEmptyRandomly( m_field );
-    }  
+  if( m_prevCellPos )
+    return;
+
+  UpdateState();     
 }
+//////////////////////////////////////////////////////////////////////////
+
+void CApp::UpdateState()
+{
+  switch(m_state)
+  {
+  case 0:
+    if ( m_logic.FindMatches(m_field, m_marks) )
+      m_state = 1;
+    else
+    {
+      GameLogic::TMoves moves;
+      m_logic.FindAllMoves( m_field, moves );
+      m_marks.clear();
+
+      BOOST_FOREACH( const GameLogic::TMoves::value_type &cur, moves )
+      {
+        m_marks.push_back( cur.first );  
+      }
+    }
+
+    break;
+  case 1:
+    m_logic.Remove(m_field, m_marks);
+    m_marks.clear();
+    m_state = 2;
+    break;
+  case 2:
+    m_logic.FillEmptyToDown( m_field );
+    m_state = 3; 
+    break;
+  
+  case 3:
+    m_logic.FillEmptyRandomly( m_field );
+    m_state = 0; 
+    break;
+
+  }
+}
+
 
 void CApp::OnLButtonUp(int mX, int mY)
 {
@@ -62,7 +107,10 @@ void CApp::OnLButtonUp(int mX, int mY)
       m_field.Set( *m_prevCellPos, m_field.Get( *curCellPos ) );
       m_field.Set( *curCellPos, cl );
 
-      m_logic.DestroyMatched(m_field);
+      m_state = 0;
+      UpdateState();
+
+      //m_logic.DestroyAndFillEmptyToDown(m_field);
     }
 
   m_prevCellPos = boost::none;
@@ -94,14 +142,13 @@ void CApp::OnRender()
   Draw(Surf_Display, background, point_t(0, 0));
   m_fieldRender.Render( Surf_Display );
 
-  GameLogic::TMoves moves;
-  m_logic.FindAllMoves( m_field, moves );
 
-  BOOST_FOREACH( const GameLogic::TMoves::value_type &cur, moves )
+  BOOST_FOREACH( const point_t &cur, m_marks )
   {
-    m_fieldRender.RenderMark( Surf_Display, cur.first );  
+    m_fieldRender.RenderMark( Surf_Display, cur );  
   }
-
 
   SDL_Flip(Surf_Display);
 }
+
+

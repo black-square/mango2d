@@ -23,11 +23,11 @@ class CApp : public CEvent {
         GameLogic m_logic;
         GameFieldRender m_fieldRender;
         GameFieldRender::PosOpt m_prevCellPos;
+        GameLogic::TPoints m_marks;
+        int m_state;
 
     public:
-      CApp(): 
-        m_fieldRender(m_field), Surf_Display(NULL), Running(true) 
-      {}
+      CApp();
       
       int OnExecute();
 
@@ -35,6 +35,9 @@ class CApp : public CEvent {
        bool OnInit();
        void OnEvent(SDL_Event* Event);
        void OnLButtonDown(int mX, int mY);
+
+       void UpdateState();
+
        void OnLButtonUp(int mX, int mY);
        void OnExit();
        void OnLoop();
