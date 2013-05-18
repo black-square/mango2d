@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "GameField.h"
 #include "GameFieldRender.h"
+#include "GameLogic.h"
 
 //==============================================================================
 class CApp : public CEvent {
@@ -19,6 +20,7 @@ class CApp : public CEvent {
     private:
         Texture	background;
         GameField m_field;
+        GameLogic m_logic;
         GameFieldRender m_fieldRender;
         GameFieldRender::PosOpt m_prevCellPos;
 
