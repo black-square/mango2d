@@ -118,8 +118,8 @@ template< class T >
 inline point_base_t<T> minEachDim( const point_base_t<T> &a, const point_base_t<T> &b ) 
 {
     return point_base_t<T>(
-        min(a.x, b.x),
-        min(a.y, b.y)
+        std::min(a.x, b.x),
+        std::min(a.y, b.y)
     );
 }
 //////////////////////////////////////////////////////////////////////////////////////
@@ -128,11 +128,19 @@ template< class T >
 inline point_base_t<T> maxEachDim( const point_base_t<T> &a, const point_base_t<T> &b ) 
 {
     return point_base_t<T>(
-        max(a.x, b.x),
-        max(a.y, b.y)
+        std::max(a.x, b.x),
+        std::max(a.y, b.y)
     );
 }
 //////////////////////////////////////////////////////////////////////////////////////
+
+template< class T >
+inline T manhattanDistance( const point_base_t<T> &a, const point_base_t<T> &b ) 
+{
+  return std::abs(a.x - b.x) + std::abs(a.y - b.y);
+}
+//////////////////////////////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 typedef point_base_t<int> point_t;

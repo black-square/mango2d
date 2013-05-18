@@ -14,53 +14,30 @@
 class CApp : public CEvent {
     private:
         bool            Running;
-
         SDL_Surface*    Surf_Display;
 
     private:
-        Texture  Surf_Grid;
-
-        Texture	Surf_X;
-        Texture	Surf_O;
         Texture	background;
         GameField m_field;
         GameFieldRender m_fieldRender;
-
-    private:
-        int		        Grid[9];
-
-        int             CurrentPlayer;
-
-        enum {
-            GRID_TYPE_NONE = 0,
-            GRID_TYPE_X,
-            GRID_TYPE_O
-        };
+        GameFieldRender::PosOpt m_prevCellPos;
 
     public:
-        CApp();
-
-        int OnExecute();
-
-    public:
-        bool OnInit();
-
-        void OnEvent(SDL_Event* Event);
-
-            void OnLButtonDown(int mX, int mY);
-
-            void OnExit();
-
-        void OnLoop();
-
-        void OnRender();
-
-        void OnCleanup();
+      CApp(): 
+        m_fieldRender(m_field), Surf_Display(NULL), Running(true) 
+      {}
+      
+      int OnExecute();
 
     public:
-        void Reset();
-
-        void SetCell(int ID, int Type);
+       bool OnInit();
+       void OnEvent(SDL_Event* Event);
+       void OnLButtonDown(int mX, int mY);
+       void OnLButtonUp(int mX, int mY);
+       void OnExit();
+       void OnLoop();
+       void OnRender();
+       void OnCleanup();
 };
 
 //==============================================================================
