@@ -1,6 +1,7 @@
 //==============================================================================
 #include "stdafx.h"
 #include "CApp.h"
+#include <SDL_ttf.h>
 
 
 void AutoPlay::Reset()
@@ -70,31 +71,46 @@ void AutoPlay::Update( GameField &field, GameLogic &logic )
 }
 //////////////////////////////////////////////////////////////////////////
 
+GlobalInitHelper::GlobalInitHelper()
+{
+  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) 
+    LOG_FATAL( "SDL_Init error" );
+
+  if( TTF_Init() != 0 )
+    LOG_FATAL( "TTF_Init error" ); 
+}
+//////////////////////////////////////////////////////////////////////////
+
+GlobalInitHelper::~GlobalInitHelper()
+{
+  TTF_Quit();
+  SDL_Quit();
+}
+
 CApp::CApp() : 
-  m_fieldRender(m_field), Surf_Display(NULL), Running(true)
+  m_fieldRender(m_field), Surf_Display(NULL), Running(true), m_movesCount(0)
 {
 
 }
 //////////////////////////////////////////////////////////////////////////
 
-bool CApp::OnInit() 
+void CApp::OnInit() 
 {
-  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-    return false;
-  }
+  if( (Surf_Display = SDL_SetVideoMode(755, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL )
+   LOG_FATAL( "SDL_SetVideoMode error" ); 
 
-  if((Surf_Display = SDL_SetVideoMode(755, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) {
-    return false;
-  }
+  SDL_WM_SetCaption("Dmitry Shesterkin", "Dmitry Shesterkin");
 
   m_logic.FillEmptyRandomly( m_field );
+  m_logic.SetEventsHandler( this );
 
   background.Load( "./_data/BackGround.jpg" );
   m_fieldRender.Init( point_t(330, 100), 42 );
 
-  m_prevClock = TClock::now();
+  m_font.Load( "./_data/gm.ttf", 25);
+  DrawHQ( m_font, "Moves count", Color::make_white(), m_infoText );
 
-  return true;
+  m_prevClock = TClock::now();
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -109,7 +125,6 @@ void CApp::OnExit() {
 
 void CApp::OnCleanup() {
   SDL_FreeSurface(Surf_Display);
-  SDL_Quit();
 }
 
 void CApp::OnLoop() 
@@ -162,9 +177,7 @@ void CApp::OnLButtonUp(int mX, int mY)
 }
 
 int CApp::OnExecute() {
-    if(OnInit() == false) {
-        return -1;
-    }
+    OnInit();
 
     SDL_Event Event;
 
@@ -190,8 +203,15 @@ void CApp::OnRender()
     m_fieldRender.RenderMark( Surf_Display, cur ); 
 
   m_fieldRender.Render( Surf_Display );
+  Draw( Surf_Display, m_infoText, point_t(38, 120) );
 
   SDL_Flip(Surf_Display);
+}
+
+void CApp::OnSwap( point_t p1, point_t p2 )
+{
+  ++m_movesCount;
+  DrawHQ( m_font, MakeString(FMT("Moves count: %d") % m_movesCount).c_str(), Color::make_white(), m_infoText ); 
 }
 
 

@@ -69,6 +69,18 @@ public:
     static GLubyte max() { return 255; }
     static GLubyte min() { return 0; }
 
+    SDL_Color toSDL_Color() const 
+    {
+      SDL_Color cl;
+
+      cl.r = r();
+      cl.g = g();
+      cl.b = b();
+      cl.unused = a();
+
+      return cl;
+    }
+
 public:
     static Color make_red()      { return Color( max(), min(), min() ); }
     static Color make_green()    { return Color( min(), max(), min() ); }

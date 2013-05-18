@@ -11,9 +11,9 @@
 #include "GameFieldRender.h"
 #include "GameLogic.h"
 #include "TimeHelpers.hpp"
+#include "Font.h"
 
 #include <boost/chrono/system_clocks.hpp>
-
 
 class AutoPlay
 {
@@ -29,9 +29,17 @@ private:
   int m_state;
   GameLogic::TMove m_nextMove;
 };
+//////////////////////////////////////////////////////////////////////////
+
+class GlobalInitHelper
+{
+public:
+  GlobalInitHelper();
+  ~GlobalInitHelper();
+};
 
 //==============================================================================
-class CApp : public CEvent {
+class CApp : public CEvent, private GlobalInitHelper, private IGameLogicEvents {
     private:
         bool            Running;
         SDL_Surface*    Surf_Display; 
@@ -48,24 +56,28 @@ class CApp : public CEvent {
         SimpleTimer<float> m_autoPlayTimer;
         TClock::time_point m_prevClock;
 
+        Font m_font;
+        int m_movesCount;
+        Texture m_infoText;
+
     public:
       CApp();
       
       int OnExecute();
 
     public:
-       bool OnInit();
+       void OnInit();
        void OnEvent(SDL_Event* Event);
        void OnLButtonDown(int mX, int mY);
-
-       void UpdateState();
-
        void OnLButtonUp(int mX, int mY);
        void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
        void OnExit();
        void OnLoop();
        void OnRender();
        void OnCleanup();
+
+       void OnSwap( point_t p1, point_t p2 );
+
 };
 
 //==============================================================================

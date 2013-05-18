@@ -4,24 +4,18 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 
-Texture::~Texture()
-{
-  Release();
-}
-
-void Texture::Release()
+void Texture::Reset( SDL_Surface *pSurf /*= 0*/ )
 {
   if( m_pSurf != 0 )
-  {
     SDL_FreeSurface( m_pSurf );
-    m_pSurf = 0;
-  }
+    
+  m_pSurf = pSurf;
 }
 
 void Texture::Load( const char *szFile )
 {
   ASSERT( szFile != 0 );
-  Release();
+  Reset();
 
   SDL_Surface* pSurfTmp = 0;
 
