@@ -5,7 +5,7 @@
 #include <SDL.h>
 
 
-#include "CEvent.h"
+#include "AppBase.h"
 #include "Texture.h"
 #include "GameField.h"
 #include "GameFieldRender.h"
@@ -39,7 +39,7 @@ public:
 };
 
 //==============================================================================
-class CApp : public CEvent, private GlobalInitHelper, private IGameLogicEvents {
+class App : public AppBase, private GlobalInitHelper, private IGameLogicEvents {
     private:
         bool            Running;
         SDL_Surface*    Surf_Display; 
@@ -61,7 +61,7 @@ class CApp : public CEvent, private GlobalInitHelper, private IGameLogicEvents {
         Texture m_infoText;
 
     public:
-      CApp();
+      App();
       
       int OnExecute();
 

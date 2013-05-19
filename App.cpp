@@ -1,6 +1,6 @@
 //==============================================================================
 #include "stdafx.h"
-#include "CApp.h"
+#include "App.h"
 #include <SDL_ttf.h>
 
 
@@ -87,14 +87,14 @@ GlobalInitHelper::~GlobalInitHelper()
   SDL_Quit();
 }
 
-CApp::CApp() : 
+App::App() : 
   m_fieldRender(m_field), Surf_Display(NULL), Running(true), m_movesCount(0)
 {
 
 }
 //////////////////////////////////////////////////////////////////////////
 
-void CApp::OnInit() 
+void App::OnInit() 
 {
   if( (Surf_Display = SDL_SetVideoMode(755, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL )
    LOG_FATAL( "SDL_SetVideoMode error" ); 
@@ -114,20 +114,20 @@ void CApp::OnInit()
 }
 //////////////////////////////////////////////////////////////////////////
 
-void CApp::OnEvent(SDL_Event* Event) {
-  CEvent::OnEvent(Event);
+void App::OnEvent(SDL_Event* Event) {
+  AppBase::OnEvent(Event);
 }
 
 //==============================================================================
-void CApp::OnExit() {
+void App::OnExit() {
   Running = false;
 }
 
-void CApp::OnCleanup() {
+void App::OnCleanup() {
   SDL_FreeSurface(Surf_Display);
 }
 
-void CApp::OnLoop() 
+void App::OnLoop() 
 {
   const TClock::time_point curClock = TClock::now();
   const float deltaTime = boost::chrono::duration<float>( curClock - m_prevClock ).count();
@@ -138,7 +138,7 @@ void CApp::OnLoop()
 }
 //////////////////////////////////////////////////////////////////////////
 
-void CApp::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
+void App::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
 {
   if( sym == SDLK_a )
     if( !m_autoPlayTimer.IsInProgress() ) 
@@ -151,14 +151,14 @@ void CApp::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
 }
 
 //------------------------------------------------------------------------------
-void CApp::OnLButtonDown(int mX, int mY) 
+void App::OnLButtonDown(int mX, int mY) 
 {
   m_prevCellPos = m_fieldRender.GetGemPos( point_t(mX, mY) );    
 }
 //////////////////////////////////////////////////////////////////////////
 
 
-void CApp::OnLButtonUp(int mX, int mY)
+void App::OnLButtonUp(int mX, int mY)
 {
   GameFieldRender::PosOpt curCellPos =  m_fieldRender.GetGemPos( point_t(mX, mY) );
 
@@ -176,26 +176,27 @@ void CApp::OnLButtonUp(int mX, int mY)
   m_prevCellPos = boost::none;
 }
 
-int CApp::OnExecute() {
-    OnInit();
+int App::OnExecute() 
+{
+  OnInit();
 
-    SDL_Event Event;
+  SDL_Event event;
 
-    while(Running) {
-        while(SDL_PollEvent(&Event)) {
-            OnEvent(&Event);
-        }
+  while(Running) 
+  {
+    while( SDL_PollEvent(&event) )
+      OnEvent(&event);
 
-        OnLoop();
-        OnRender();
-    }
+    OnLoop();
+    OnRender();
+  }
 
-    OnCleanup();
+  OnCleanup();
 
-    return 0;
+  return 0;
 }
 
-void CApp::OnRender() 
+void App::OnRender() 
 {
   Draw(Surf_Display, background, point_t(0, 0));
 
@@ -208,7 +209,7 @@ void CApp::OnRender()
   SDL_Flip(Surf_Display);
 }
 
-void CApp::OnSwap( point_t p1, point_t p2 )
+void App::OnSwap( point_t p1, point_t p2 )
 {
   ++m_movesCount;
   DrawHQ( m_font, MakeString(FMT("Moves count: %d") % m_movesCount).c_str(), Color::make_white(), m_infoText ); 

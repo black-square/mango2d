@@ -5,11 +5,11 @@
 #include <SDL.h>
 
 //==============================================================================
-class CEvent {
+class AppBase {
 	public:
-		CEvent();
+		AppBase();
 
-		virtual ~CEvent();
+		virtual ~AppBase();
 
 		virtual void OnEvent(SDL_Event* Event);
 

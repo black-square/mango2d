@@ -1,19 +1,19 @@
 //==============================================================================
 #include "stdafx.h"
 
-#include "CEvent.h"
+#include "AppBase.h"
 
 //==============================================================================
-CEvent::CEvent() {
+AppBase::AppBase() {
 }
 
 //------------------------------------------------------------------------------
-CEvent::~CEvent() {
+AppBase::~AppBase() {
 	//Do nothing
 }
 
 //==============================================================================
-void CEvent::OnEvent(SDL_Event* Event) {
+void AppBase::OnEvent(SDL_Event* Event) {
 	switch(Event->type) {
 		case SDL_ACTIVEEVENT: {
 			switch(Event->active.state) {
@@ -142,127 +142,127 @@ void CEvent::OnEvent(SDL_Event* Event) {
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnInputFocus() {
+void AppBase::OnInputFocus() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnInputBlur() {
+void AppBase::OnInputBlur() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
+void AppBase::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
+void AppBase::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMouseFocus() {
+void AppBase::OnMouseFocus() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMouseBlur() {
+void AppBase::OnMouseBlur() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
+void AppBase::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMouseWheel(bool Up, bool Down) {
+void AppBase::OnMouseWheel(bool Up, bool Down) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnLButtonDown(int mX, int mY) {
+void AppBase::OnLButtonDown(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnLButtonUp(int mX, int mY) {
+void AppBase::OnLButtonUp(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnRButtonDown(int mX, int mY) {
+void AppBase::OnRButtonDown(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnRButtonUp(int mX, int mY) {
+void AppBase::OnRButtonUp(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMButtonDown(int mX, int mY) {
+void AppBase::OnMButtonDown(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMButtonUp(int mX, int mY) {
+void AppBase::OnMButtonUp(int mX, int mY) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnJoyAxis(Uint8 which,Uint8 axis,Sint16 value) {
+void AppBase::OnJoyAxis(Uint8 which,Uint8 axis,Sint16 value) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnJoyButtonDown(Uint8 which,Uint8 button) {
+void AppBase::OnJoyButtonDown(Uint8 which,Uint8 button) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnJoyButtonUp(Uint8 which,Uint8 button) {
+void AppBase::OnJoyButtonUp(Uint8 which,Uint8 button) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnJoyHat(Uint8 which,Uint8 hat,Uint8 value) {
+void AppBase::OnJoyHat(Uint8 which,Uint8 hat,Uint8 value) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnJoyBall(Uint8 which,Uint8 ball,Sint16 xrel,Sint16 yrel) {
+void AppBase::OnJoyBall(Uint8 which,Uint8 ball,Sint16 xrel,Sint16 yrel) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnMinimize() {
+void AppBase::OnMinimize() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnRestore() {
+void AppBase::OnRestore() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnResize(int w,int h) {
+void AppBase::OnResize(int w,int h) {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnExpose() {
+void AppBase::OnExpose() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnExit() {
+void AppBase::OnExit() {
 	//Pure virtual, do nothing
 }
 
 //------------------------------------------------------------------------------
-void CEvent::OnUser(Uint8 type, int code, void* data1, void* data2) {
+void AppBase::OnUser(Uint8 type, int code, void* data1, void* data2) {
 	//Pure virtual, do nothing
 }
 
