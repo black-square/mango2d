@@ -2,18 +2,28 @@
 #include "stdafx.h"
 
 #include "AppBase.h"
+#include <SDL_ttf.h>
 
-//==============================================================================
-AppBase::AppBase() {
+
+GlobalInitHelper::GlobalInitHelper()
+{
+  if(SDL_Init(SDL_INIT_EVERYTHING) < 0) 
+    LOG_FATAL( "SDL_Init error" );
+
+  if( TTF_Init() != 0 )
+    LOG_FATAL( "TTF_Init error" ); 
+}
+//////////////////////////////////////////////////////////////////////////
+
+GlobalInitHelper::~GlobalInitHelper()
+{
+  TTF_Quit();
+  SDL_Quit();
 }
 
-//------------------------------------------------------------------------------
-AppBase::~AppBase() {
-	//Do nothing
-}
 
 //==============================================================================
-void AppBase::OnEvent(SDL_Event* Event) {
+bool AppBase::DispatchEvent(SDL_Event* Event) {
 	switch(Event->type) {
 		case SDL_ACTIVEEVENT: {
 			switch(Event->active.state) {
@@ -115,7 +125,7 @@ void AppBase::OnEvent(SDL_Event* Event) {
 		}
 
 		case SDL_QUIT: {
-			OnExit();
+			return false;
 			break;
 		}
 
@@ -139,131 +149,46 @@ void AppBase::OnEvent(SDL_Event* Event) {
 			break;
 		}
 	}
+
+  return true;
+}
+//////////////////////////////////////////////////////////////////////////
+
+void AppBase::MainLoop( SDL_Surface *pDisplay )
+{
+  TClock::time_point prevClock = TClock::now();
+
+  SDL_Event event;
+
+  for(;;) 
+  {
+    while( SDL_PollEvent(&event) )
+      if( !DispatchEvent(&event) )
+        return;
+
+    const TClock::time_point curClock = TClock::now();
+    const float deltaTime = boost::chrono::duration<float>( curClock - prevClock ).count();
+    prevClock = curClock;
+
+    OnLoop( deltaTime );
+    OnRender( pDisplay );
+  }
+}
+//////////////////////////////////////////////////////////////////////////
+
+int AppBase::Execute( point_t screenSize )
+{
+  SDL_Surface *pDisplay = SDL_SetVideoMode( screenSize.x, screenSize.y, 32, SDL_HWSURFACE | SDL_DOUBLEBUF );
+
+  if( pDisplay == 0 )
+    LOG_FATAL( "SDL_SetVideoMode error" ); 
+
+  OnInit();
+  MainLoop(pDisplay);
+  OnCleanup();
+  SDL_FreeSurface(pDisplay);
+
+  return 0;
 }
 
-//------------------------------------------------------------------------------
-void AppBase::OnInputFocus() {
-	//Pure virtual, do nothing
-}
 
-//------------------------------------------------------------------------------
-void AppBase::OnInputBlur() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMouseFocus() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMouseBlur() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMouseWheel(bool Up, bool Down) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnLButtonDown(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnLButtonUp(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnRButtonDown(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnRButtonUp(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMButtonDown(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMButtonUp(int mX, int mY) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnJoyAxis(Uint8 which,Uint8 axis,Sint16 value) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnJoyButtonDown(Uint8 which,Uint8 button) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnJoyButtonUp(Uint8 which,Uint8 button) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnJoyHat(Uint8 which,Uint8 hat,Uint8 value) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnJoyBall(Uint8 which,Uint8 ball,Sint16 xrel,Sint16 yrel) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnMinimize() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnRestore() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnResize(int w,int h) {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnExpose() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnExit() {
-	//Pure virtual, do nothing
-}
-
-//------------------------------------------------------------------------------
-void AppBase::OnUser(Uint8 type, int code, void* data1, void* data2) {
-	//Pure virtual, do nothing
-}
-
-//==============================================================================
