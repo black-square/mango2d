@@ -1,13 +1,26 @@
 #ifndef Font_h__
 #define Font_h__
 
-#include <SDL_ttf.h>
 #include "Texture.h"
 
-class Font: boost::noncopyable
+namespace Detail
+{
+  struct FontBase
+  {
+    FontBase(): m_font(0) {} 
+    TTF_Font *m_font;
+  };
+}
+
+class Font: private Detail::FontBase, private boost::noncopyable
 {
 public:
-  Font(): m_font(0) {}
+  typedef boost::shared_ptr<Font> TPtr;
+  typedef const TPtr &TPtrParam;
+
+public:
+  Font() {}
+  Font(  const char *szFile, int ptsize  ) { Load(szFile, ptsize); }
   ~Font() { Reset(); }
   void Reset();
   void Load( const char *szFile, int ptsize );
@@ -16,7 +29,7 @@ public:
   friend void DrawHQ( const Font &font, const char *szText, Color fg, Texture &res );
 
 private:
-  TTF_Font *m_font;  
+  
 };
 
 #endif // Font_h__

@@ -2,7 +2,6 @@
 #include "stdafx.h"
 
 #include "AppBase.h"
-#include <SDL_ttf.h>
 
 
 GlobalInitHelper::GlobalInitHelper()
@@ -170,7 +169,7 @@ void AppBase::MainLoop( SDL_Surface *pDisplay )
     const float deltaTime = boost::chrono::duration<float>( curClock - prevClock ).count();
     prevClock = curClock;
 
-    OnLoop( deltaTime );
+    OnUpdate( deltaTime );
     OnRender( pDisplay );
   }
 }

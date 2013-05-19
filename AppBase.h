@@ -18,9 +18,9 @@ class AppBase: private GlobalInitHelper
 public:
   int Execute( point_t screenSize );
 
-private:
+protected:
   virtual void OnInit() {}
-  virtual void OnLoop( float deltaTime ) {}
+  virtual void OnUpdate( float deltaTime ) {}
   virtual void OnRender( SDL_Surface *pDisplay ) {}
   virtual void OnCleanup() {}
 
