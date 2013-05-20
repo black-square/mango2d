@@ -21,7 +21,7 @@ public:
 protected:
   virtual void OnInit() {}
   virtual void OnUpdate( float deltaTime ) {}
-  virtual void OnRender() {}
+  virtual void OnRender() const {}
   virtual void OnCleanup() {}
 
   virtual void OnInputFocus() {}

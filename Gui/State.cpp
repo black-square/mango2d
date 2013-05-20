@@ -34,7 +34,7 @@ void State::Update( float deltaTime )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void State::Render()
+void State::Render() const 
 {
   BOOST_FOREACH( IWidget::TPtrParam p, m_widgets )
     p->Render();

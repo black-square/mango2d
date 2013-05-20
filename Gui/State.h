@@ -33,7 +33,7 @@ public:
   void LButtonUp( Point pos );
   void KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode );
   void Update( float deltaTime );
-  void Render();
+  void Render() const;
 
   IStateManager *GetManager() const { ASSERT( m_pManager != 0 ); return m_pManager; }
   void SetManager( IStateManager *pManager ) { m_pManager = pManager; }
@@ -46,7 +46,7 @@ private:
   virtual void OnLButtonUp( Point pos ) {}
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
   virtual void OnUpdate( float deltaTime ) {}
-  virtual void OnRender() {}
+  virtual void OnRender() const {}
 
 private:
   typedef std::vector<IWidget::TPtr> TWidgets;

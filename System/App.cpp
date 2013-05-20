@@ -41,7 +41,7 @@ void App::OnLButtonUp(int mX, int mY)
 }
 //////////////////////////////////////////////////////////////////////////
 
-void App::OnRender() 
+void App::OnRender() const
 {
   m_pGuiState->Render();
 }

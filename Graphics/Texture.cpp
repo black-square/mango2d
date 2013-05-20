@@ -95,28 +95,69 @@ void Draw( const Texture &tex, Point pos, int curFrame /*= 0*/ )
   Draw( tex, Rect( pos, tex.m_size ), curFrame );
 }
 //////////////////////////////////////////////////////////////////////////
-
-void Draw( const Texture &tex, const Rect &rect, int curFrame /*= 0*/ )
+template< class TexMatrixStrategyT >
+inline void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat )
 {
   ASSERT( tex.m_hTex != Texture::INVALID_TEX_HANDLE );
-  ASSERT( curFrame >= 0 && curFrame < tex.m_framesCount );
 
   glBindTexture( GL_TEXTURE_2D, tex.m_hTex );
 
   glMatrixMode( GL_TEXTURE );
   glLoadIdentity();
-
-  if( tex.m_framesCount > 1 )
-  {
-    glScalef( 1 / GLfloat(tex.m_framesCount), 1, 1 );
-    glTranslatef(GLfloat(curFrame), 1, 1 );  
-  } 
+  matrixStrat( tex );
 
   glBegin(GL_QUADS);
-    glTexCoord2i(0, 0); glVertex3i(rect.x1, rect.y1, 0);
-    glTexCoord2i(1, 0); glVertex3i(rect.x2, rect.y1, 0);
-    glTexCoord2i(1, 1); glVertex3i(rect.x2, rect.y2, 0);
-    glTexCoord2i(0, 1); glVertex3i(rect.x1, rect.y2, 0);
+  glTexCoord2i(0, 0); glVertex3i(rect.x1, rect.y1, 0);
+  glTexCoord2i(1, 0); glVertex3i(rect.x2, rect.y1, 0);
+  glTexCoord2i(1, 1); glVertex3i(rect.x2, rect.y2, 0);
+  glTexCoord2i(0, 1); glVertex3i(rect.x1, rect.y2, 0);
   glEnd();
 }
 /////////////////////////////////////////////////////////////////////
+
+struct Texture::FrameMatrixStrat
+{
+  FrameMatrixStrat( int curFrame ): curFrame(curFrame) {}
+
+  void operator()( const Texture &tex ) const
+  {
+    ASSERT( curFrame >= 0 && curFrame < tex.m_framesCount );
+
+    if( tex.m_framesCount > 1 )
+    {
+      glScalef( 1 / GLfloat(tex.m_framesCount), 1, 1 );
+      glTranslatef(GLfloat(curFrame), 1, 1 );  
+    } 
+  }
+private:
+  int curFrame;  
+}; 
+//////////////////////////////////////////////////////////////////////////
+ 
+struct Texture::RectMatrixStrat
+{
+  RectMatrixStrat( const Rect &texRect ): texRect(texRect) {}
+
+  void operator()( const Texture &tex ) const
+  {
+    const GLfloat texRectWidth = GLfloat( texRect.getWidth() );
+    const GLfloat texRectHeight = GLfloat( texRect.getHeight() );
+
+    glScalef( texRectWidth / tex.m_size.w, texRectHeight / tex.m_size.h, 1 );
+    glTranslatef( texRect.x1 / texRectWidth, texRect.y1 / texRectHeight, 1 ); 
+  }
+private:
+  const Rect &texRect;  
+}; 
+//////////////////////////////////////////////////////////////////////////
+
+void Draw( const Texture &tex, const Rect &rect, int curFrame /*= 0*/ )
+{
+  DrawImpl( tex, rect, Texture::FrameMatrixStrat(curFrame) );
+}
+/////////////////////////////////////////////////////////////////////
+
+void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect )
+{
+  DrawImpl( tex, destRect, Texture::RectMatrixStrat(texRect) );  
+}

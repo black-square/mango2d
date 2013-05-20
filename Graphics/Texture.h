@@ -36,6 +36,14 @@ public:
 
   friend void Draw( const Texture &tex, Point pos, int curFrame = 0 );
   friend void Draw( const Texture &tex, const Rect &rect, int curFrame = 0 );
+  friend void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect );
+
+private:
+  struct FrameMatrixStrat;
+  struct RectMatrixStrat;
+
+  template< class TexMatrixStrategyT >
+  friend void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat );
 
 private:
   std::pair<int, int> GetTexMode( const SDL_Surface *pSurf ) const;

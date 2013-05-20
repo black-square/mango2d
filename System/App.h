@@ -15,7 +15,7 @@ public:
   void OnLButtonUp(int mX, int mY);
   void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
   void OnUpdate( float deltaTime );
-  void OnRender();
+  void OnRender() const;
   void SetState( Gui::State::TPtrParam p );
   void SetMainState();
 
