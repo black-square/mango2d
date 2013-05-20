@@ -1,31 +1,33 @@
 #include "stdafx.h"
 #include "Gui/Widgets.h"
 
-void GuiImage::Render() const
+namespace Gui {
+
+void Image::Render() const
 {
   Draw( *m_pTex,  m_pos );
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiLabel::SetText( const std::string &text, Color color /*= Color::make_white()*/ )
+void Label::SetText( const std::string &text, Color color /*= Color::make_white()*/ )
 {
  DrawHQ( *m_pFont, text.c_str(), color, m_tex ); 
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiLabel::Render() const
+void Label::Render() const
 {
   Draw( m_tex,  m_pos );
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiButton::SetText( const std::string &text, Color color /*= Color::make_white()*/ )
+void Button::SetText( const std::string &text, Color color /*= Color::make_white()*/ )
 {
   DrawHQ( *m_pFont, text.c_str(), color, m_labelTex ); 
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiButton::Render() const
+void Button::Render() const
 {
   Draw( *m_pBack,  m_rect, m_curState );
 
@@ -42,16 +44,18 @@ void GuiButton::Render() const
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiButton::OnLButtonDown( Point pos )
+void Button::OnLButtonDown( Point pos )
 {
   m_curState = Pressed;
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiButton::OnLButtonUp( Point pos )
+void Button::OnLButtonUp( Point pos )
 {
   if( m_curState == Pressed && m_callback )
     m_callback();
 
   m_curState = Released;
 }
+
+} //namespace Gui 

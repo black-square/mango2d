@@ -46,7 +46,7 @@ void App::OnRender()
   m_pGuiState->Render();
 }
 
-void App::SetState( GuiState::TPtrParam p )
+void App::SetState( Gui::State::TPtrParam p )
 {
   ASSERT( !m_pNextGuiState );
   ASSERT( p );

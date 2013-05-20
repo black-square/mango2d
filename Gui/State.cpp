@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Gui/State.h"
 
-
-void GuiState::LButtonDown( Point pos )
+namespace Gui {
+void State::LButtonDown( Point pos )
 {
   OnLButtonDown( pos );
 
@@ -12,7 +12,7 @@ void GuiState::LButtonDown( Point pos )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiState::LButtonUp( Point pos )
+void State::LButtonUp( Point pos )
 {
   OnLButtonUp( pos );
 
@@ -22,19 +22,19 @@ void GuiState::LButtonUp( Point pos )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiState::KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode )
+void State::KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode )
 {
   OnKeyDown( sym, mod, unicode );
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiState::Update( float deltaTime )
+void State::Update( float deltaTime )
 {
   OnUpdate( deltaTime );
 }
 //////////////////////////////////////////////////////////////////////////
 
-void GuiState::Render()
+void State::Render()
 {
   BOOST_FOREACH( IWidget::TPtrParam p, m_widgets )
     p->Render();
@@ -42,5 +42,4 @@ void GuiState::Render()
   OnRender();
 }
 //////////////////////////////////////////////////////////////////////////
-
-
+} //namespace Gui

@@ -1,6 +1,7 @@
 #ifndef GuiState_h__
 #define GuiState_h__
 
+namespace Gui {
 //////////////////////////////////////////////////////////////////////////
 
 struct IWidget
@@ -16,17 +17,17 @@ struct IWidget
 };
 //////////////////////////////////////////////////////////////////////////
 
-struct IGuiStateManager;
+struct IStateManager;
 //////////////////////////////////////////////////////////////////////////
 
-class GuiState
+class State
 {
 public:
-  typedef boost::shared_ptr<GuiState> TPtr;
+  typedef boost::shared_ptr<State> TPtr;
   typedef const TPtr &TPtrParam;
 
 public:
-  GuiState(): m_pManager(0) {}
+  State(): m_pManager(0) {}
 
   void LButtonDown( Point pos );
   void LButtonUp( Point pos );
@@ -34,8 +35,8 @@ public:
   void Update( float deltaTime );
   void Render();
 
-  IGuiStateManager *GetManager() const { ASSERT( m_pManager != 0 ); return m_pManager; }
-  void SetManager( IGuiStateManager *pManager ) { m_pManager = pManager; }
+  IStateManager *GetManager() const { ASSERT( m_pManager != 0 ); return m_pManager; }
+  void SetManager( IStateManager *pManager ) { m_pManager = pManager; }
 
 protected:
   void AddWidget( IWidget::TPtrParam p ) { m_widgets.push_back(p); }
@@ -52,18 +53,18 @@ private:
  
 private:
   TWidgets m_widgets;
-  IGuiStateManager *m_pManager;   
+  IStateManager *m_pManager;   
 };
 //////////////////////////////////////////////////////////////////////////
 
-struct IGuiStateManager
+struct IStateManager
 {
-  virtual ~IGuiStateManager() {}
+  virtual ~IStateManager() {}
 
-  virtual void SetState( GuiState::TPtrParam p ) = 0;
+  virtual void SetState( State::TPtrParam p ) = 0;
   virtual void SetMainState() = 0;
 };
 
-
+} //namespace Gui
 
 #endif // GuiState_h__

@@ -5,14 +5,16 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Font.h"
 
-class GuiImage: public IWidget, boost::noncopyable
+namespace Gui {
+
+class Image: public IWidget, boost::noncopyable
 {
 public:
-  typedef boost::shared_ptr<GuiImage> TPtr;
+  typedef boost::shared_ptr<Image> TPtr;
   typedef const TPtr &TPtrParam;  
 
 public:
-  GuiImage( Point pos, Texture::TPtrParam pTex ):
+  Image( Point pos, Texture::TPtrParam pTex ):
     m_pos(pos), m_pTex(pTex)
   {}  
  
@@ -26,14 +28,14 @@ private:
 };
 //////////////////////////////////////////////////////////////////////////
 
-class GuiLabel: public IWidget, boost::noncopyable
+class Label: public IWidget, boost::noncopyable
 {
 public:
-  typedef boost::shared_ptr<GuiLabel> TPtr;
+  typedef boost::shared_ptr<Label> TPtr;
   typedef const TPtr &TPtrParam; 
   
 public:
-  GuiLabel( Point pos, Font::TPtrParam pFont, const std::string &text = "", Color color = Color::make_white() ):
+  Label( Point pos, Font::TPtrParam pFont, const std::string &text = "", Color color = Color::make_white() ):
     m_pos(pos), m_pFont(pFont)
   {
     SetText( text, color );
@@ -50,16 +52,16 @@ private:
 };
 //////////////////////////////////////////////////////////////////////////
 
-class GuiButton: public IWidget, boost::noncopyable
+class Button: public IWidget, boost::noncopyable
 {
 public:
-  typedef boost::shared_ptr<GuiButton> TPtr;
+  typedef boost::shared_ptr<Button> TPtr;
   typedef const TPtr &TPtrParam; 
   typedef boost::function< void() > TCallback;
   typedef const TCallback &TCallbackParam;
 
 public:
-  GuiButton( const Rect &rect, Font::TPtrParam pFont, Texture::TPtrParam pBack,
+  Button( const Rect &rect, Font::TPtrParam pFont, Texture::TPtrParam pBack,
              TCallbackParam callback, const std::string &text = "", 
              Color color = Color::make_white() 
   ):
@@ -90,5 +92,7 @@ private:
   State m_curState;
   TCallback m_callback;
 };
+
+} //namespace Gui
 
 #endif // GuiWidgets_h__

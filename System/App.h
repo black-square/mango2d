@@ -7,7 +7,7 @@
 #include "Gui/State.h"
 
 //==============================================================================
-class App: public AppBase, private IGuiStateManager 
+class App: public AppBase, private Gui::IStateManager 
 {
 public:
   void OnInit();
@@ -16,12 +16,12 @@ public:
   void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
   void OnUpdate( float deltaTime );
   void OnRender();
-  void SetState( GuiState::TPtrParam p );
+  void SetState( Gui::State::TPtrParam p );
   void SetMainState();
 
 private:
-  GuiState::TPtr m_pGuiState;
-  GuiState::TPtr m_pNextGuiState;
+  Gui::State::TPtr m_pGuiState;
+  Gui::State::TPtr m_pNextGuiState;
 };
 
 //==============================================================================
