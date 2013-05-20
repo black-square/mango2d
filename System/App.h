@@ -4,7 +4,7 @@
 #include <SDL.h>
 
 #include "AppBase.h"
-#include "GuiState.h"
+#include "Gui/State.h"
 
 //==============================================================================
 class App: public AppBase, private IGuiStateManager 

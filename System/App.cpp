@@ -1,7 +1,7 @@
 //==============================================================================
 #include "stdafx.h"
 #include "App.h"
-#include "GuiStateMain.h"
+#include "GuiStates/StateMain.h"
 
 void App::OnInit() 
 {

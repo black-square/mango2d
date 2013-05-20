@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GuiState.h"
+#include "Gui/State.h"
 
 
 void GuiState::LButtonDown( Point pos )

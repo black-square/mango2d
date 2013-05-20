@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "GuiWidgets.h"
+#include "Gui/Widgets.h"
 
 void GuiImage::Render() const
 {

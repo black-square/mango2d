@@ -1,7 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "Color.hpp"
+#include "Core/Color.hpp"
 
 namespace Detail
 {

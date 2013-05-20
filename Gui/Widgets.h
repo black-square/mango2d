@@ -1,10 +1,9 @@
 #ifndef GuiWidgets_h__
 #define GuiWidgets_h__
 
-#include "GuiState.h"
-#include "Texture.h"
-#include "Font.h"
-#include "Color.hpp"
+#include "Gui/State.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Font.h"
 
 class GuiImage: public IWidget, boost::noncopyable
 {
