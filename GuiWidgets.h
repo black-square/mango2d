@@ -56,10 +56,15 @@ class GuiButton: public IWidget, boost::noncopyable
 public:
   typedef boost::shared_ptr<GuiButton> TPtr;
   typedef const TPtr &TPtrParam; 
+  typedef boost::function< void() > TCallback;
+  typedef const TCallback &TCallbackParam;
 
 public:
-  GuiButton( const Rect &rect, Font::TPtrParam pFont, Texture::TPtrParam pBack, const std::string &text = "", Color color = Color::make_white() ):
-    m_rect(rect), m_pFont(pFont), m_pBack(pBack)
+  GuiButton( const Rect &rect, Font::TPtrParam pFont, Texture::TPtrParam pBack,
+             TCallbackParam callback, const std::string &text = "", 
+             Color color = Color::make_white() 
+  ):
+    m_rect(rect), m_pFont(pFont), m_pBack(pBack), m_callback(callback),  m_curState(Released)
   {
     SetText( text, color );
   }  
@@ -68,12 +73,23 @@ public:
   void SetText( const std::string &text, Color color = Color::make_white() );
   void SetTexture( Texture::TPtrParam pBack ) { m_pBack = pBack; }
   void Render() const;
+  void OnLButtonDown( Point pos );
+  void OnLButtonUp( Point pos );
+
+private:
+  enum State
+  {
+    Released,
+    Pressed
+  };
 
 private:
   Rect m_rect;
   Font::TPtr m_pFont;
   Texture::TPtr m_pBack;
   Texture m_labelTex;
+  State m_curState;
+  TCallback m_callback;
 };
 
 #endif // GuiWidgets_h__

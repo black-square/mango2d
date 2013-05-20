@@ -11,6 +11,8 @@ struct IWidget
   virtual ~IWidget() {}
   virtual Rect GetRect() const = 0;
   virtual void Render() const {};
+  virtual void OnLButtonDown( Point pos ) {}
+  virtual void OnLButtonUp( Point pos ) {}
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -26,19 +28,24 @@ public:
 public:
   GuiState(): m_pManager(0) {}
 
-  virtual void OnLButtonDown( Point pos ) {}
+  void LButtonDown( Point pos );
+  void LButtonUp( Point pos );
+  void KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode );
+  void Update( float deltaTime );
+  void Render();
+
+  IGuiStateManager *GetManager() const { ASSERT( m_pManager != 0 ); return m_pManager; }
+  void SetManager( IGuiStateManager *pManager ) { m_pManager = pManager; }
+
+protected:
+  void AddWidget( IWidget::TPtrParam p ) { m_widgets.push_back(p); }
+
+private:
+  virtual void OnLButtonDown( Point pos ){}
   virtual void OnLButtonUp( Point pos ) {}
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
   virtual void OnUpdate( float deltaTime ) {}
-  virtual void OnRender() { RenderWidgets(); }
-
-  IGuiStateManager *GetManager() const { return m_pManager; }
-  void SetManager( IGuiStateManager *pManager ) { m_pManager = pManager; }
-
-  void AddWidget( IWidget::TPtrParam p ) { m_widgets.push_back(p); }
-
-protected:
-  void RenderWidgets();
+  virtual void OnRender() {}
 
 private:
   typedef std::vector<IWidget::TPtr> TWidgets;

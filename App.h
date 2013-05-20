@@ -21,6 +21,7 @@ public:
 
 private:
   GuiState::TPtr m_pGuiState;
+  GuiState::TPtr m_pNextGuiState;
 };
 
 //==============================================================================
