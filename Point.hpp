@@ -1,51 +1,60 @@
 #ifndef CORE_POINT_H
 #define CORE_POINT_H
+
+#include "Size.hpp"
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T>
-struct point_base_t
+struct PointBase
 {
     typedef T TValueType;
     
     T x;
     T y;
 
-    point_base_t(): x(0), y(0) {}
-    point_base_t( T _x, T _y ): x(_x), y(_y) {}
+    PointBase(): x(0), y(0) {}
+    PointBase( T _x, T _y ): x(_x), y(_y) {}
     
     template< class T2>
-    explicit point_base_t( const point_base_t<T2> &other ): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
+    explicit PointBase( const PointBase<T2> &other ): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
     
     void set( T _x, T _y ) { x = _x; y = _y; }
     void zeroize() { x = 0; y = 0; }
     bool isZero() const { return x == 0 && y == 0; } 
 
-    point_base_t operator-() const { return point_base_t( -x, -y ); }
+    PointBase operator-() const { return PointBase( -x, -y ); }
 
-    friend point_base_t operator+( const point_base_t &a, const point_base_t &b ) { return point_base_t( a.x + b.x, a.y + b.y ); }
-    friend point_base_t operator-( const point_base_t &a, const point_base_t &b ) { return point_base_t( a.x - b.x, a.y - b.y ); }
+    friend PointBase operator+( const PointBase &a, const PointBase &b ) { return PointBase( a.x + b.x, a.y + b.y ); }
+    friend PointBase operator-( const PointBase &a, const PointBase &b ) { return PointBase( a.x - b.x, a.y - b.y ); }
 
-    friend point_base_t operator*( const point_base_t &a, T val )  { return point_base_t( a.x * val, a.y * val ); }
-    friend point_base_t operator*( T val, const point_base_t &a )  { return a * val; }
-    friend point_base_t operator/( const point_base_t &a, T val )  { return point_base_t( a.x / val, a.y / val ); }
+    friend PointBase operator+( const PointBase &a, const SizeBase<T> &b ) { return PointBase( a.x + b.w, a.y + b.h ); }
+    friend PointBase operator-( const PointBase &a, const SizeBase<T> &b ) { return PointBase( a.x - b.w, a.y - b.h ); }
 
-    point_base_t& operator+=( const point_base_t &_in ) { x += _in.x; y += _in.y; return *this; }
-    point_base_t& operator-=( const point_base_t &_in ) { x -= _in.x; y -= _in.y; return *this; }   
+    friend PointBase operator*( const PointBase &a, T val )  { return PointBase( a.x * val, a.y * val ); }
+    friend PointBase operator*( T val, const PointBase &a )  { return a * val; }
+    friend PointBase operator/( const PointBase &a, T val )  { return PointBase( a.x / val, a.y / val ); }
+
+    PointBase& operator+=( const PointBase &_in ) { x += _in.x; y += _in.y; return *this; }
+    PointBase& operator-=( const PointBase &_in ) { x -= _in.x; y -= _in.y; return *this; }
     
-    point_base_t& operator+=( T v ) { x += v; y += v; return *this; }
-    point_base_t& operator-=( T v ) { x -= v; y -= v; return *this; }
-    point_base_t& operator*=( T v ) { x *= v; y *= v; return *this; }
-    point_base_t& operator/=( T v ) { x /= v; y /= v; return *this; }
+    PointBase& operator+=( const SizeBase<T> &_in ) { x += _in.w; y += _in.h; return *this; }
+    PointBase& operator-=( const SizeBase<T> &_in ) { x -= _in.w; y -= _in.h; return *this; }    
+    
+    PointBase& operator+=( T v ) { x += v; y += v; return *this; }
+    PointBase& operator-=( T v ) { x -= v; y -= v; return *this; }
+    PointBase& operator*=( T v ) { x *= v; y *= v; return *this; }
+    PointBase& operator/=( T v ) { x /= v; y /= v; return *this; }
 };
 //////////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-inline bool operator == ( const point_base_t<T> &a, const point_base_t<T> &b )
+inline bool operator == ( const PointBase<T> &a, const PointBase<T> &b )
 {
     return a.x == b.x && a.y == b.y;
 }
 //////////////////////////////////////////////////////////////////////////////////////
 template <typename T>
-inline bool operator != ( const point_base_t<T> &a, const point_base_t<T> &b )
+inline bool operator != ( const PointBase<T> &a, const PointBase<T> &b )
 {
     return !(a == b);
 }
@@ -57,21 +66,21 @@ inline bool operator != ( const point_base_t<T> &a, const point_base_t<T> &b )
 
 //—кал€рное произведение
 template< class T >
-inline T vecDotProduct( const point_base_t<T> &vec1, const point_base_t<T> &vec2 ) 
+inline T vecDotProduct( const PointBase<T> &vec1, const PointBase<T> &vec2 ) 
 {
     return vec1.x * vec2.x + vec1.y * vec2.y;
 }
 
 //ƒлина вектора в квадрате
 template< class T >
-inline T vecLengthSquared( const point_base_t<T> &vec ) 
+inline T vecLengthSquared( const PointBase<T> &vec ) 
 {
     return vec.x * vec.x + vec.y * vec.y;
 }
 
 //ƒлина вектора
 template< class T >
-inline T vecLength( const point_base_t<T> &vec ) 
+inline T vecLength( const PointBase<T> &vec ) 
 {
     return sqrt_t( vecLengthSquared(vec) );
 }
@@ -79,7 +88,7 @@ inline T vecLength( const point_base_t<T> &vec )
 //Ќормализаци€ вектора
 //»спользуйте перегрузку с length если длина вектора известна
 template< class T >
-inline point_base_t<T> vecNormalize( const point_base_t<T> &vec, T length ) 
+inline PointBase<T> vecNormalize( const PointBase<T> &vec, T length ) 
 {
     ASSERT( length == vecLength(vec) );
     ASSERT( length > 0 );
@@ -87,7 +96,7 @@ inline point_base_t<T> vecNormalize( const point_base_t<T> &vec, T length )
 }
 
 template< class T >
-inline point_base_t<T> vecNormalize( const point_base_t<T> &vec ) 
+inline PointBase<T> vecNormalize( const PointBase<T> &vec ) 
 {
     return vecNormalize( vec, vecLength(vec) );
 }
@@ -95,19 +104,19 @@ inline point_base_t<T> vecNormalize( const point_base_t<T> &vec )
 
 //Ћежит ли точка pt слева от пр€мой получаемой при движении от from до to
 template< class T > 
-bool isOnLeftSide( const point_base_t<T> &from, const point_base_t<T> &to, const point_base_t<T> &pt )
+bool isOnLeftSide( const PointBase<T> &from, const PointBase<T> &to, const PointBase<T> &pt )
 {
     //ƒл€ того чтобы пон€ть с какой стороны лежит точка, 
     //определим угол между этими векторами если он лежит в интервале [0, +Pi], 
     //то точка находитс€ с левой стороны 
     //ƒл€ этого воспользуемс€ скал€рным произведением, которое будет положительным если
     //угол лежит в интервале [-Pi/2, +Pi/2].
-    const point_base_t<T> vec1( pt.x - from.x, pt.y - from.y );
+    const PointBase<T> vec1( pt.x - from.x, pt.y - from.y );
 
     //ƒл€ того чтобы перейти от интервала [0, +Pi] к [-Pi/2, +Pi/2] повернЄм 
     //данный вектор на Pi/2:
-    //Ёквивалентно point_base_t<T> vec( to - from ); SWAP( vec2.x, vec2.y ); vec2.y = -vec2.y;
-    const point_base_t<T> vec2( to.y - from.y, from.x - to.x );
+    //Ёквивалентно PointBase<T> vec( to - from ); SWAP( vec2.x, vec2.y ); vec2.y = -vec2.y;
+    const PointBase<T> vec2( to.y - from.y, from.x - to.x );
 
     //»так, скал€рное произведение vec1 и vec2
     return vecDotProduct(vec1, vec2) > 0;
@@ -115,9 +124,9 @@ bool isOnLeftSide( const point_base_t<T> &from, const point_base_t<T> &to, const
 //////////////////////////////////////////////////////////////////////////////////////
 
 template< class T >
-inline point_base_t<T> minEachDim( const point_base_t<T> &a, const point_base_t<T> &b ) 
+inline PointBase<T> minEachDim( const PointBase<T> &a, const PointBase<T> &b ) 
 {
-    return point_base_t<T>(
+    return PointBase<T>(
         std::min(a.x, b.x),
         std::min(a.y, b.y)
     );
@@ -125,9 +134,9 @@ inline point_base_t<T> minEachDim( const point_base_t<T> &a, const point_base_t<
 //////////////////////////////////////////////////////////////////////////////////////
 
 template< class T >
-inline point_base_t<T> maxEachDim( const point_base_t<T> &a, const point_base_t<T> &b ) 
+inline PointBase<T> maxEachDim( const PointBase<T> &a, const PointBase<T> &b ) 
 {
-    return point_base_t<T>(
+    return PointBase<T>(
         std::max(a.x, b.x),
         std::max(a.y, b.y)
     );
@@ -135,7 +144,7 @@ inline point_base_t<T> maxEachDim( const point_base_t<T> &a, const point_base_t<
 //////////////////////////////////////////////////////////////////////////////////////
 
 template< class T >
-inline T manhattanDistance( const point_base_t<T> &a, const point_base_t<T> &b ) 
+inline T manhattanDistance( const PointBase<T> &a, const PointBase<T> &b ) 
 {
   return std::abs(a.x - b.x) + std::abs(a.y - b.y);
 }
@@ -143,7 +152,7 @@ inline T manhattanDistance( const point_base_t<T> &a, const point_base_t<T> &b )
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-typedef point_base_t<int> point_t;
+typedef PointBase<int> Point;
 //////////////////////////////////////////////////////////////////////////////////////
 
 

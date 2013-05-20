@@ -11,7 +11,7 @@ namespace Detail
     static const GLuint INVALID_TEX_HANDLE = 0;
 
     GLuint m_hTex;
-    point_base_t<GLsizei> m_size;
+    SizeBase<GLsizei> m_size;
     int m_framesCount;
   };
 }
@@ -32,10 +32,10 @@ public:
   void Reset();
   void Load( const char *szFile, int framesCount = 1 );
 
-  point_t GetSize() const { return m_size; } 
+  Size GetSize() const { return m_size; } 
 
-  friend void Draw( const Texture &tex, point_t pos, int curFrame = 0 );
-  friend void Draw( const Texture &tex, const rect_t &rect, int curFrame = 0 );
+  friend void Draw( const Texture &tex, Point pos, int curFrame = 0 );
+  friend void Draw( const Texture &tex, const Rect &rect, int curFrame = 0 );
 
 private:
   std::pair<int, int> GetTexMode( const SDL_Surface *pSurf ) const;

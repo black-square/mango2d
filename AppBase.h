@@ -16,12 +16,12 @@ public:
 class AppBase: private GlobalInitHelper 
 {
 public:
-  int Execute( point_t screenSize );
+  int Execute( Point screenSize );
 
 protected:
   virtual void OnInit() {}
   virtual void OnUpdate( float deltaTime ) {}
-  virtual void OnRender( SDL_Surface *pDisplay ) {}
+  virtual void OnRender() {}
   virtual void OnCleanup() {}
 
   virtual void OnInputFocus() {}
@@ -53,7 +53,7 @@ private:
   typedef boost::chrono::system_clock TClock;
 
 private:
-  void MainLoop( SDL_Surface *pDisplay );
+  void MainLoop();
   bool DispatchEvent(SDL_Event *Event);
 };
 

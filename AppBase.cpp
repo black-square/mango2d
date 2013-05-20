@@ -152,7 +152,7 @@ bool AppBase::DispatchEvent(SDL_Event* Event) {
 }
 //////////////////////////////////////////////////////////////////////////
 
-void AppBase::MainLoop( SDL_Surface *pDisplay )
+void AppBase::MainLoop()
 {
   TClock::time_point prevClock = TClock::now();
 
@@ -175,14 +175,14 @@ void AppBase::MainLoop( SDL_Surface *pDisplay )
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    OnRender( pDisplay );
+    OnRender();
 
     SDL_GL_SwapBuffers();
   }
 }
 //////////////////////////////////////////////////////////////////////////
 
-int AppBase::Execute( point_t screenSize )
+int AppBase::Execute( Point screenSize )
 {
   SDL_Surface *pDisplay = SDL_SetVideoMode( screenSize.x, screenSize.y, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL );
 
@@ -219,7 +219,7 @@ int AppBase::Execute( point_t screenSize )
   glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
   OnInit();
-  MainLoop(pDisplay);
+  MainLoop();
   OnCleanup();
   SDL_FreeSurface(pDisplay);
 

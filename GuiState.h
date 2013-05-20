@@ -9,8 +9,8 @@ struct IWidget
   typedef const TPtr &TPtrParam;
 
   virtual ~IWidget() {}
-  virtual rect_t GetRect() const = 0;
-  virtual void Render( SDL_Surface *pDisplay ) const {};
+  virtual Rect GetRect() const = 0;
+  virtual void Render() const {};
 };
 //////////////////////////////////////////////////////////////////////////
 
@@ -26,11 +26,11 @@ public:
 public:
   GuiState(): m_pManager(0) {}
 
-  virtual void OnLButtonDown( point_t pos ) {}
-  virtual void OnLButtonUp( point_t pos ) {}
+  virtual void OnLButtonDown( Point pos ) {}
+  virtual void OnLButtonUp( Point pos ) {}
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
   virtual void OnUpdate( float deltaTime ) {}
-  virtual void OnRender( SDL_Surface *pDisplay ) { RenderWidgets(pDisplay); }
+  virtual void OnRender() { RenderWidgets(); }
 
   IGuiStateManager *GetManager() const { return m_pManager; }
   void SetManager( IGuiStateManager *pManager ) { m_pManager = pManager; }
@@ -38,7 +38,7 @@ public:
   void AddWidget( IWidget::TPtrParam p ) { m_widgets.push_back(p); }
 
 protected:
-  void RenderWidgets( SDL_Surface *pDisplay );
+  void RenderWidgets();
 
 private:
   typedef std::vector<IWidget::TPtr> TWidgets;

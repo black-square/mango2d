@@ -90,13 +90,13 @@ void Texture::Load( const char *szFile, int framesCount /*= 1*/ )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void Draw( const Texture &tex, point_t pos, int curFrame /*= 0*/ )
+void Draw( const Texture &tex, Point pos, int curFrame /*= 0*/ )
 {
-  Draw( tex, rect_t( pos, pos + tex.m_size ), curFrame );
+  Draw( tex, Rect( pos, tex.m_size ), curFrame );
 }
 //////////////////////////////////////////////////////////////////////////
 
-void Draw( const Texture &tex, const rect_t &rect, int curFrame /*= 0*/ )
+void Draw( const Texture &tex, const Rect &rect, int curFrame /*= 0*/ )
 {
   ASSERT( tex.m_hTex != Texture::INVALID_TEX_HANDLE );
   ASSERT( curFrame >= 0 && curFrame < tex.m_framesCount );

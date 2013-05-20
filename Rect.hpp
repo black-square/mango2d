@@ -4,44 +4,45 @@
 //////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T>
-struct rect_base_t
+struct RectBase
 {
     typedef T TValueType;
 
     T x1, y1; //Точки принадлежат прямоугольнику
     T x2, y2; //Точки НЕ принадлежат прямоугольнику
 
-    rect_base_t(): x1(0), y1(0), x2(0), y2(0) {}
-    rect_base_t( T _x1, T _y1, T _x2, T _y2 ): x1(_x1), y1(_y1), x2(_x2), y2(_y2) {}
-    rect_base_t( const point_base_t<T> &min, const point_base_t<T> &max ): x1(min.x), y1(min.y), x2(max.x), y2(max.y) {}
+    RectBase(): x1(0), y1(0), x2(0), y2(0) {}
+    RectBase( T _x1, T _y1, T _x2, T _y2 ): x1(_x1), y1(_y1), x2(_x2), y2(_y2) {}
+    RectBase( const PointBase<T> &min, const PointBase<T> &max ): x1(min.x), y1(min.y), x2(max.x), y2(max.y) {}
+    RectBase( const PointBase<T> &pos, const SizeBase<T> &size ): x1(pos.x), y1(pos.y), x2(pos.x + size.w), y2(pos.y + size.h) {}
 
     template< class OtherT >
-    explicit rect_base_t( const rect_base_t<OtherT> &other ): x1(other.x1), y1(other.y1), x2(other.x2), y2(other.y2) {}
+    explicit RectBase( const RectBase<OtherT> &other ): x1(other.x1), y1(other.y1), x2(other.x2), y2(other.y2) {}
 
-    rect_base_t &zeroize() { x1 = 0; y1 = 0; x2 = 0; y2 = 0; return *this; }
+    RectBase &zeroize() { x1 = 0; y1 = 0; x2 = 0; y2 = 0; return *this; }
 
-    point_base_t<T> getCenter() const { return point_base_t<T>( (x1 + x2) / 2, ( y1 + y2 ) / 2 ); }
-    point_base_t<T> getTopLeft() const { return point_base_t<T>( x1, y1 ); }
-    point_base_t<T> getTopRight() const { return point_base_t<T>( x2 - 1, y1 ); }
-    point_base_t<T> getBottomLeft() const { return point_base_t<T>( x1, y2 - 1 ); }
-    point_base_t<T> getBottomRight() const { return point_base_t<T>( x2 - 1, y2 - 1); }
+    PointBase<T> getCenter() const { return PointBase<T>( (x1 + x2) / 2, ( y1 + y2 ) / 2 ); }
+    PointBase<T> getTopLeft() const { return PointBase<T>( x1, y1 ); }
+    PointBase<T> getTopRight() const { return PointBase<T>( x2 - 1, y1 ); }
+    PointBase<T> getBottomLeft() const { return PointBase<T>( x1, y2 - 1 ); }
+    PointBase<T> getBottomRight() const { return PointBase<T>( x2 - 1, y2 - 1); }
     
     T getWidth() const { return x2 - x1; }
     T getHeight() const { return y2 - y1; }
 
-    rect_base_t &setWidth( T val )
+    RectBase &setWidth( T val )
     {
         x2 = x1 + val;
         return *this;
     }
 
-    rect_base_t &setHeight( T val )
+    RectBase &setHeight( T val )
     {
         y2 = y1 + val;
         return *this;
     }
 
-    point_base_t<T> getSize() const { return point_base_t<T>(getWidth(), getHeight()); }
+    SizeBase<T> getSize() const { return SizeBase<T>(getWidth(), getHeight()); }
           
     //Специально не стал называть isIn дабы при переносе
     //старого кода компилятор указал на ошибку
@@ -50,12 +51,12 @@ struct rect_base_t
         return x >= x1 && x < x2 && y >= y1 && y < y2;
     }
     
-    bool isContain( const point_base_t<T> &p ) const
+    bool isContain( const PointBase<T> &p ) const
     {
         return isContain( p.x, p.y );
     }
     
-    rect_base_t &set( T _x1, T _y1, T _x2, T _y2 )
+    RectBase &set( T _x1, T _y1, T _x2, T _y2 )
     {
         x1 = _x1;
         y1 = _y1;
@@ -65,7 +66,7 @@ struct rect_base_t
         return *this;
     }
 
-    rect_base_t &setSize( T width, T height )
+    RectBase &setSize( T width, T height )
     {
         x2 = x1 + width;
         y2 = y1 + height;
@@ -73,12 +74,12 @@ struct rect_base_t
         return *this;
     }
 
-    rect_base_t &setSize( const point_base_t<T> &p )
+    RectBase &setSize( const SizeBase<T> &p )
     {
-        return setSize( p.x, p.y );
+        return setSize( p.w, p.h );
     }
 
-    rect_base_t &setPos( T left, T top )
+    RectBase &setPos( T left, T top )
     {
         x2 = left + getWidth();
         y2 = top + getHeight();
@@ -88,17 +89,17 @@ struct rect_base_t
         return *this;
     }
     
-    rect_base_t &setPos( const point_base_t<T> &p )
+    RectBase &setPos( const PointBase<T> &p )
     {
         return setPos( p.x, p.y );
     }
 
-    point_base_t<T> getPos() const
+    PointBase<T> getPos() const
     {
         return getTopLeft();
     }
 
-    rect_base_t &setPosCenter( T x, T y )
+    RectBase &setPosCenter( T x, T y )
     {
         const T width = getWidth();
         const T height = getHeight();
@@ -111,12 +112,12 @@ struct rect_base_t
         return *this;
     }
 
-    rect_base_t &setPosCenter( const point_base_t<T> &p )
+    RectBase &setPosCenter( const PointBase<T> &p )
     {
         return setPosCenter( p.x, p.y );
     }
 
-    rect_base_t &moveOn( T x, T y )
+    RectBase &moveOn( T x, T y )
     {
         x2 += x;
         y2 += y;
@@ -126,12 +127,12 @@ struct rect_base_t
         return *this;
     }
 
-    rect_base_t &moveOn( const point_base_t<T> &p )
+    RectBase &moveOn( const PointBase<T> &p )
     {
         return moveOn( p.x, p.y );
     }
 
-    rect_base_t &scaleOn( T val )
+    RectBase &scaleOn( T val )
     {
         x1 -= val;
         y1 -= val;
@@ -143,7 +144,7 @@ struct rect_base_t
 };
 //////////////////////////////////////////////////////////////////////////////////////
 template< class T2 >
-inline bool operator==( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
+inline bool operator==( const RectBase<T2> &r1, const RectBase<T2> &r2 )
 {
     return 
         r1.x1 == r2.x1 && 
@@ -154,7 +155,7 @@ inline bool operator==( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
 //////////////////////////////////////////////////////////////////////////////////////
 
 template< class T2 >
-inline bool operator!=( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
+inline bool operator!=( const RectBase<T2> &r1, const RectBase<T2> &r2 )
 {
     return !( r1 == r2 );     
 }
@@ -165,7 +166,7 @@ inline bool operator!=( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
 //эффект, когда функция возвращает true только если больший прямоугольник полностью
 //включает меньший
 template< class T2 >
-inline bool isIntersect( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
+inline bool isIntersect( const RectBase<T2> &r1, const RectBase<T2> &r2 )
 {
     return r1.x1 < r2.x2 && r2.x1 < r1.x2 && r1.y1 < r2.y2 && r2.y1 < r1.y2;
 }
@@ -175,7 +176,7 @@ inline bool isIntersect( const rect_base_t<T2> &r1, const rect_base_t<T2> &r2 )
 //помещался в bound
 //Возвр: true в том случае когда r пришлось двигать
 template< class T2 >
-inline bool clamp( rect_base_t<T2> &r, const rect_base_t<T2> &bound )
+inline bool clamp( RectBase<T2> &r, const RectBase<T2> &bound )
 {
     bool result = false;
 
@@ -209,7 +210,7 @@ inline bool clamp( rect_base_t<T2> &r, const rect_base_t<T2> &bound )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
-typedef rect_base_t<int> rect_t;
+typedef RectBase<int> Rect;
 //////////////////////////////////////////////////////////////////////////////////////
 
 #endif

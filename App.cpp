@@ -8,8 +8,8 @@ void App::OnInit()
 {
   SDL_WM_SetCaption("Dmitry Shesterkin", "Dmitry Shesterkin");
   
-  SetMainState();
-  //SetState( boost::make_shared<GuiStateAutoPlay>() );
+  //SetMainState();
+  SetState( boost::make_shared<GuiStateAutoPlay>() );
   
 }
 //////////////////////////////////////////////////////////////////////////
@@ -28,19 +28,19 @@ void App::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
 
 void App::OnLButtonDown(int mX, int mY) 
 {
-  m_pGuiState->OnLButtonDown( point_t(mX, mY) );      
+  m_pGuiState->OnLButtonDown( Point(mX, mY) );      
 }
 //////////////////////////////////////////////////////////////////////////
 
 void App::OnLButtonUp(int mX, int mY)
 {
-  m_pGuiState->OnLButtonUp( point_t(mX, mY) );      
+  m_pGuiState->OnLButtonUp( Point(mX, mY) );      
 }
 //////////////////////////////////////////////////////////////////////////
 
-void App::OnRender( SDL_Surface *pDisplay ) 
+void App::OnRender() 
 {
-  m_pGuiState->OnRender( pDisplay );
+  m_pGuiState->OnRender();
 }
 
 void App::SetState( GuiState::TPtrParam p )
