@@ -2,12 +2,15 @@
 #include "stdafx.h"
 #include "App.h"
 #include "GuiStateAutoPlay.h"
+#include "GuiStateMain.h"
 
 void App::OnInit() 
 {
   SDL_WM_SetCaption("Dmitry Shesterkin", "Dmitry Shesterkin");
   
-  SetMainState(); 
+  SetMainState();
+  //SetState( boost::make_shared<GuiStateAutoPlay>() );
+  
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -38,7 +41,6 @@ void App::OnLButtonUp(int mX, int mY)
 void App::OnRender( SDL_Surface *pDisplay ) 
 {
   m_pGuiState->OnRender( pDisplay );
-  VERIFY( SDL_Flip(pDisplay) == 0 );
 }
 
 void App::SetState( GuiState::TPtrParam p )
@@ -49,7 +51,7 @@ void App::SetState( GuiState::TPtrParam p )
 
 void App::SetMainState()
 {
-  m_pGuiState = boost::make_shared<GuiStateAutoPlay>();
+  m_pGuiState = boost::make_shared<GuiStateMain>();
   m_pGuiState->SetManager(this);
 }
 

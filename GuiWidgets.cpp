@@ -3,7 +3,7 @@
 
 void GuiImage::Render( SDL_Surface *pDisplay ) const
 {
-  Draw( pDisplay, *m_pTex,  m_pos );
+  Draw( *m_pTex,  m_pos );
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -15,6 +15,6 @@ void GuiLabel::SetText( const std::string &text, Color color /*= Color::make_whi
 
 void GuiLabel::Render( SDL_Surface *pDisplay ) const
 {
-  Draw( pDisplay, m_tex,  m_pos );
+  Draw( m_tex,  m_pos );
 }
 

@@ -7,10 +7,15 @@ namespace Detail
 {
   struct TextureBase
   {
-    TextureBase(): m_pSurf(0) {} 
-    SDL_Surface *m_pSurf;
+    TextureBase(): m_hTex(INVALID_TEX_HANDLE), m_framesCount(1) {} 
+    static const GLuint INVALID_TEX_HANDLE = 0;
+
+    GLuint m_hTex;
+    point_base_t<GLsizei> m_size;
+    int m_framesCount;
   };
 }
+//////////////////////////////////////////////////////////////////////////
 
 class Texture: private Detail::TextureBase,  private boost::noncopyable
 {
@@ -19,19 +24,22 @@ public:
   typedef const TPtr &TPtrParam;  
 
 public:
-  Texture( ) {}
-  Texture( const char *szFile ) { Load(szFile); }  
-  Texture( const char *szFile, const Color &transpColor ) { Load(szFile, transpColor); }  
+  Texture() {}
+  explicit Texture( const char *szFile, int framesCount = 1 ) { Load(szFile, framesCount); }  
 
   ~Texture() { Reset(); }
-  void Reset( SDL_Surface *pSurf = 0 );
-  void Load( const char *szFile );
-  void Load( const char *szFile, const Color &transpColor );
+  void Reset( SDL_Surface *pSurf );
+  void Reset();
+  void Load( const char *szFile, int framesCount = 1 );
 
-  point_t GetSize() const; 
+  point_t GetSize() const { return m_size; } 
 
-  friend void Draw( SDL_Surface *pDest, const Texture &tex, point_t pos );
-  friend void Draw( SDL_Surface *pDest, const Texture &tex, rect_t rect );
+  friend void Draw( const Texture &tex, point_t pos, int curFrame = 0 );
+  friend void Draw( const Texture &tex, const rect_t &rect, int curFrame = 0 );
+
+private:
+  std::pair<int, int> GetTexMode( const SDL_Surface *pSurf ) const;
+  void LoadImpl( SDL_Surface *pSurf, int framesCount = 1 );
 };
 
 

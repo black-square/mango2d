@@ -20,7 +20,7 @@ public:
 
 public:
   Font() {}
-  Font(  const char *szFile, int ptsize  ) { Load(szFile, ptsize); }
+  Font( const char *szFile, int ptsize ) { Load(szFile, ptsize); }
   ~Font() { Reset(); }
   void Reset();
   void Load( const char *szFile, int ptsize );
