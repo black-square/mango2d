@@ -88,23 +88,27 @@ template< class TimeT>
 class SimpleTimer
 {   
 public:
-  SimpleTimer() { Reset(); }    
+  SimpleTimer() { Reset(); }
+  explicit SimpleTimer( TimeT savedTotalTime ) { Reset(savedTotalTime); }    
 
   //Сбросить таймер в исходное положение
   void Reset() { curTime = totalTime = GetUndef(); }
 
+  //Сбросить таймер в исходное положение и запомнить интервал savedTotalTime
+  void Reset( TimeT savedTotalTime ) { curTime = GetUndef(); totalTime = savedTotalTime; }
+
   //Запустить таймер на срабатывание через time секунд
   void Start( TimeT time ) { ASSERT(time >= 0); curTime = totalTime = time; }
    
+  //Перезапустить со значением от предыдущего вызова Start
+  void Start() { ASSERT(time >= 0); curTime = totalTime; }
+
   //Остановить таймер
   void Stop() { curTime = GetUndef(); }
     
   //Запущен ли таймер в текущий момент и время срабатывания ещё не наступило
   bool IsInProgress() const { return curTime != GetUndef(); }
-  
-  //Перезапустить со значением от предыдущего вызова Start
-  void Restart() { ASSERT(time >= 0); curTime = totalTime; }
-  
+   
   //Установить время сохраненное в предыдущем вызове Start, что позволяет вместо 
   //в дальнейшем вместо Start вызвать Restart
   //Эквивалентно Start(time); Stop();
