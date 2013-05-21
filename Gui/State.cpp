@@ -22,6 +22,12 @@ void State::LButtonUp( Point pos )
 }
 //////////////////////////////////////////////////////////////////////////
 
+void State::MouseMove( Point pos )
+{
+  OnMouseMove( pos );
+}
+//////////////////////////////////////////////////////////////////////////
+
 void State::KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode )
 {
   OnKeyDown( sym, mod, unicode );

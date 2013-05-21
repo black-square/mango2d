@@ -11,8 +11,9 @@ class App: public AppBase, private Gui::IStateManager
 {
 public:
   void OnInit();
-  void OnLButtonDown(int mX, int mY);
-  void OnLButtonUp(int mX, int mY);
+  void OnMouseButtonDown( Point pos, Uint8 button );
+  void OnMouseButtonUp( Point pos, Uint8 button );
+  void OnMouseMove( Point pos );
   void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
   void OnUpdate( float deltaTime );
   void OnRender() const;

@@ -31,6 +31,7 @@ public:
 
   void LButtonDown( Point pos );
   void LButtonUp( Point pos );
+  void MouseMove( Point pos );
   void KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode );
   void Update( float deltaTime );
   void Render() const;
@@ -44,6 +45,7 @@ protected:
 private:
   virtual void OnLButtonDown( Point pos ){}
   virtual void OnLButtonUp( Point pos ) {}
+  virtual void OnMouseMove( Point pos ) {}
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
   virtual void OnUpdate( float deltaTime ) {}
   virtual void OnRender() const {}

@@ -155,5 +155,10 @@ inline T manhattanDistance( const PointBase<T> &a, const PointBase<T> &b )
 typedef PointBase<int> Point;
 //////////////////////////////////////////////////////////////////////////////////////
 
+template< class CharT, class CharTraitsT, class PointT >
+inline std::basic_ostream<CharT, CharTraitsT> &operator<<( std::basic_ostream<CharT, CharTraitsT> &os, const PointBase<PointT> &p )
+{
+  return os << '[' << p.x << ", " << p.y << ']';
+}
 
 #endif

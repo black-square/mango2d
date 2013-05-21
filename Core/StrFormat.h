@@ -56,17 +56,4 @@ inline std::wstring MakeWString( const boost::format &fmtStr )
 
 ///////////////////////////////////////////////////////////////////////////////
 
-template<class MsgT>
-void LogFatalImpl( const MsgT &msg );
-
-template<size_t N>
-inline void LogFatalImpl( const char (&msg)[N] )
-{
-  LogFatalImpl( static_cast<const char * const &>(msg) );
-}
-
-#define LOG_FATAL( str ) LogFatalImpl( str )
-
-
-
 #endif //#define STRFORMAT_HPP_70E3F625_C1E1_4E3F

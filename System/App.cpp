@@ -29,15 +29,23 @@ void App::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode)
 }
 //////////////////////////////////////////////////////////////////////////
 
-void App::OnLButtonDown(int mX, int mY) 
+void App::OnMouseButtonDown( Point pos, Uint8 button ) 
 {
-  m_pGuiState->LButtonDown( Point(mX, mY) );      
+  if( button == SDL_BUTTON_LEFT )
+    m_pGuiState->LButtonDown( pos );      
 }
 //////////////////////////////////////////////////////////////////////////
 
-void App::OnLButtonUp(int mX, int mY)
+void App::OnMouseButtonUp( Point pos, Uint8 button )
 {
-  m_pGuiState->LButtonUp( Point(mX, mY) );      
+  if( button == SDL_BUTTON_LEFT )
+    m_pGuiState->LButtonUp( pos );      
+}
+//////////////////////////////////////////////////////////////////////////
+
+void App::OnMouseMove( Point pos )
+{
+  m_pGuiState->MouseMove(pos);
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -45,15 +53,21 @@ void App::OnRender() const
 {
   m_pGuiState->Render();
 }
+//////////////////////////////////////////////////////////////////////////
 
 void App::SetState( Gui::State::TPtrParam p )
 {
   ASSERT( !m_pNextGuiState );
   ASSERT( p );
 
-  m_pNextGuiState = p;
-  m_pNextGuiState->SetManager(this);
+  p->SetManager(this);
+
+  if( m_pGuiState )
+    m_pNextGuiState = p;
+  else
+    m_pGuiState = p;
 }
+//////////////////////////////////////////////////////////////////////////
 
 void App::SetMainState()
 {
