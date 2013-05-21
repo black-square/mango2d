@@ -40,6 +40,17 @@ public:
       m_g1 * x * x + m_g2 * x + m_g3;
   } 
 
+  static T CalcNewTimeWithSameAccel( T prevDist, T prevTime, T newDist )
+  {
+    // Maple:
+    //  restart;
+    //  constants:=constants, prevDist, newDist, prevTime;
+    //  solve( {prevDist = acc * prevTime^2, newDist = acc * newTime^2} );
+    //  allvalues(%);
+
+    return std::sqrt( newDist * prevTime * prevTime / prevDist );
+  } 
+
 private:
   void CalcCoef( T b, T v )
   {
