@@ -208,6 +208,23 @@ inline bool clamp( RectBase<T2> &r, const RectBase<T2> &bound )
 
     return result;
 }
+//////////////////////////////////////////////////////////////////////////
+
+template< class T2 >
+inline PointBase<T2> clamp( PointBase<T2> p, const RectBase<T2> &bound )
+{ 
+  if( p.x < bound.x1 )
+    p.x = bound.x1;
+  else if( p.x >= bound.x2 )
+    p.x = bound.x2 - 1;
+
+  if( p.y < bound.y1 )
+    p.y = bound.y1;
+  else if( p.y >= bound.y2 )
+    p.y = bound.y2 - 1;
+
+  return p;
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 typedef RectBase<int> Rect;

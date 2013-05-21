@@ -150,6 +150,14 @@ inline T manhattanDistance( const PointBase<T> &a, const PointBase<T> &b )
 }
 //////////////////////////////////////////////////////////////////////////////////////
 
+template< class T >
+inline PointBase<T> abs( const PointBase<T> &a ) 
+{
+  return PointBase<T>(
+    std::abs(a.x),
+    std::abs(a.y)
+  );
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 typedef PointBase<int> Point;
