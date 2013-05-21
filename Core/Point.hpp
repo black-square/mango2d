@@ -82,7 +82,7 @@ inline T vecLengthSquared( const PointBase<T> &vec )
 template< class T >
 inline T vecLength( const PointBase<T> &vec ) 
 {
-    return sqrt_t( vecLengthSquared(vec) );
+    return std::sqrt( vecLengthSquared(vec) );
 }
 
 //Нормализация вектора
