@@ -25,6 +25,57 @@ inline T SquaredStepFactor( T k )
 //////////////////////////////////////////////////////////////////////////
 
 template <typename T>
+class SquaredWithBounceStepFactor
+{
+public:
+  SquaredWithBounceStepFactor( T bouncePos, T bounceHeight )
+  {
+    CalcCoef( bouncePos, bounceHeight );
+  }
+    
+  T operator()( T x ) const
+  {
+    return  x <= m_bouncePos ? 
+      m_f1 * x * x:
+      m_g1 * x * x + m_g2 * x + m_g3;
+  } 
+
+private:
+  void CalcCoef( T b, T v )
+  {
+    // Maple:
+    //  restart;
+    //  constants:=constants, B, V:
+    //  F := x -> C2 * x^2 + C1 * x^1 + C0:
+    //  F1 := unapply( diff(F(x), x ), x ):
+    //  Sys := { F(0) = 0, F(B) = 1, F1(0) = 0 }:
+    //  ResultFormula1 := factor(eval(F(x),solve(Sys)));
+    //  G := x -> C2 * x^2 + C1 * x^1 + C0:
+    //  Sys := { G(B) = 1, G(1) = 1, G(B + (1 - B)/2) = V }:
+    //  ResultFormula2 := eval(F(x),solve(Sys));
+    //  Test := eval([ResultFormula1, ResultFormula2], {V = 9/10, B = 4/5} );
+    //  plot( Test, x=0..1, y=0..1 );
+    m_bouncePos = b;
+
+    const T b2 = b * b;
+    const T denom = ( 1 + b2 - 2 * b );
+
+    m_f1 = 1 / b2;
+    m_g1 = 4 * (1-v) / denom;
+    m_g2 = 4 * (b+1) * (v-1) / denom;
+    m_g3 = ( 1 - 4*b*v + 2*b + b2 ) / denom;  
+  } 
+
+private:
+  T m_bouncePos;
+  T m_f1;
+  T m_g1;
+  T m_g2;
+  T m_g3; 
+};
+//////////////////////////////////////////////////////////////////////////
+
+template <typename T>
 inline T CubicStepFactor( T k )
 {
   return k * k * k;

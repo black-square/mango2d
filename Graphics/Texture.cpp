@@ -107,10 +107,10 @@ inline void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT m
   matrixStrat( tex );
 
   glBegin(GL_QUADS);
-  glTexCoord2i(0, 0); glVertex3i(rect.x1, rect.y1, 0);
-  glTexCoord2i(1, 0); glVertex3i(rect.x2, rect.y1, 0);
-  glTexCoord2i(1, 1); glVertex3i(rect.x2, rect.y2, 0);
-  glTexCoord2i(0, 1); glVertex3i(rect.x1, rect.y2, 0);
+    glTexCoord2i(0, 0); glVertex3i(rect.x1, rect.y1, 0);
+    glTexCoord2i(1, 0); glVertex3i(rect.x2, rect.y1, 0);
+    glTexCoord2i(1, 1); glVertex3i(rect.x2, rect.y2, 0);
+    glTexCoord2i(0, 1); glVertex3i(rect.x1, rect.y2, 0);
   glEnd();
 }
 /////////////////////////////////////////////////////////////////////
