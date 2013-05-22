@@ -16,9 +16,12 @@ struct PointBase
     PointBase(): x(0), y(0) {}
     PointBase( T _x, T _y ): x(_x), y(_y) {}
     
-    template< class T2>
+    template< class T2 >
     explicit PointBase( const PointBase<T2> &other ): x(static_cast<T>(other.x)), y(static_cast<T>(other.y)) {}
     
+    template< class T2 >
+    explicit PointBase( const SizeBase<T2> &other ): x(static_cast<T>(other.w)), y(static_cast<T>(other.h)) {}
+
     void set( T _x, T _y ) { x = _x; y = _y; }
     void zeroize() { x = 0; y = 0; }
     bool isZero() const { return x == 0 && y == 0; } 

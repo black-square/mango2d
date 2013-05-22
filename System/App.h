@@ -11,6 +11,7 @@ class App: public AppBase, private Gui::IStateManager
 {
 public:
   void OnInit();
+  void OnCleanup();
   void OnMouseButtonDown( Point pos, Uint8 button );
   void OnMouseButtonUp( Point pos, Uint8 button );
   void OnMouseMove( Point pos );

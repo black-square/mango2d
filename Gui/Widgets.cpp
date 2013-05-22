@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Gui/Widgets.h"
+#include "Audio/SoundManager.h"
 
 namespace Gui {
 
@@ -59,6 +60,7 @@ void Button::Render() const
 void Button::OnLButtonDown( Point pos )
 {
   m_curState = Pressed;
+  PlaySound( "./_data/click.wav" );
 }
 //////////////////////////////////////////////////////////////////////////
 

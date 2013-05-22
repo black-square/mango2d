@@ -2,12 +2,19 @@
 #include "stdafx.h"
 #include "App.h"
 #include "GuiStates/StateMain.h"
+#include "Audio/SoundManager.h"
 
 void App::OnInit() 
 {
   SDL_WM_SetCaption("The Game", "The Game");
-  
+  InitGlobalSoundManager();
   SetMainState(); 
+}
+//////////////////////////////////////////////////////////////////////////
+
+void App::OnCleanup()
+{
+  DestroyGlobalSoundManager();
 }
 //////////////////////////////////////////////////////////////////////////
 
