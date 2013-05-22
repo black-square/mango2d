@@ -15,15 +15,19 @@ public:
 
 public:
   Image( Point pos, Texture::TPtrParam pTex ):
-    m_pos(pos), m_pTex(pTex)
+    m_rect(pos, pTex->GetSize()), m_pTex(pTex)
+  {}  
+
+  Image( const Rect rect, Texture::TPtrParam pTex ):
+    m_rect(rect), m_pTex(pTex)
   {}  
  
-  Rect GetRect() const { return Rect( m_pos, m_pTex->GetSize() ); }
+  Rect GetRect() const { return m_rect; }
   void Render() const;
   void SetTexture( Texture::TPtrParam pTex ) { m_pTex = pTex; }
 
 private:
-  Point m_pos;
+  Rect m_rect;
   Texture::TPtr m_pTex;
 };
 //////////////////////////////////////////////////////////////////////////

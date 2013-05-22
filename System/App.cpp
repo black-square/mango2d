@@ -5,7 +5,7 @@
 
 void App::OnInit() 
 {
-  SDL_WM_SetCaption("Dmitry Shesterkin", "Dmitry Shesterkin");
+  SDL_WM_SetCaption("The Game", "The Game");
   
   SetMainState(); 
 }
