@@ -17,7 +17,19 @@ void Label::SetText( const std::string &text, Color color /*= Color::make_white(
 
 void Label::Render() const
 {
-  Draw( m_tex,  m_pos );
+  if( !m_tex.IsValid() )
+    return;
+  
+  Point realPos;
+
+  switch (m_align)
+  {
+   case Left:   realPos = m_pos;  break;
+   case Center: realPos = m_pos - Point( m_tex.GetSize().w / 2, 0 ); break;
+   case Right:  realPos = m_pos - Point( m_tex.GetSize().w, 0 ); break;
+  }
+ 
+  Draw( m_tex,  realPos );
 }
 //////////////////////////////////////////////////////////////////////////
 

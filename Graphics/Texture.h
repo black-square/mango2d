@@ -32,7 +32,8 @@ public:
   void Reset();
   void Load( const char *szFile, int framesCount = 1 );
 
-  Size GetSize() const { return m_size; } 
+  Size GetSize() const { return m_size; }
+  bool IsValid() const { return m_hTex != INVALID_TEX_HANDLE; } 
 
   friend void Draw( const Texture &tex, Point pos, int curFrame = 0 );
   friend void Draw( const Texture &tex, const Rect &rect, int curFrame = 0 );

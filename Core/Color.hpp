@@ -170,12 +170,14 @@ inline void glTexEnv( GLenum target, GLenum pname, const Color &c )
 // s - насыщенность, [0 - 1]
 // v - €ркость, [0 - 1] 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-inline void initFromHSV( GLfloat h, GLfloat s, GLfloat v, Color &c )
+inline Color MakeColorFromHSV( GLfloat h, GLfloat s, GLfloat v )
 {
     ASSERT( h >= 0 && h < 360 ); 
     ASSERT( s >= 0 && s <= 1 );
     ASSERT( v >= 0 && v <= 1 );
     
+    Color c;
+
     const GLfloat fl_h = floorf( h / 60 );
     const GLfloat f = h / 60 - fl_h;
     const GLfloat p = v * (1 - s);
@@ -193,5 +195,7 @@ inline void initFromHSV( GLfloat h, GLfloat s, GLfloat v, Color &c )
     }
 
     c.seta( Color::max() );
+
+    return c;
 }
 

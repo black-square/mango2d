@@ -32,11 +32,18 @@ class Label: public IWidget, boost::noncopyable
 {
 public:
   typedef boost::shared_ptr<Label> TPtr;
-  typedef const TPtr &TPtrParam; 
+  typedef const TPtr &TPtrParam;
+  
+  enum Align
+  {
+    Left,
+    Center,
+    Right
+  }; 
   
 public:
-  Label( Point pos, Font::TPtrParam pFont, const std::string &text = "", Color color = Color::make_white() ):
-    m_pos(pos), m_pFont(pFont)
+  Label( Point pos, Font::TPtrParam pFont, const std::string &text = "", Color color = Color::make_white(), Align align = Left ):
+    m_pos(pos), m_pFont(pFont), m_align(align)
   {
     SetText( text, color );
   }  
@@ -49,6 +56,7 @@ private:
   Point m_pos;
   Font::TPtr m_pFont;
   Texture m_tex;
+  Align m_align;
 };
 //////////////////////////////////////////////////////////////////////////
 

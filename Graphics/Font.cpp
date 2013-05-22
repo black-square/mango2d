@@ -28,6 +28,12 @@ void Draw( const Font &font, const char *szText, Color fg, Texture &res )
   ASSERT( font.m_font != 0 );
   ASSERT( szText != 0 );
 
+  if( *szText == '\0' )
+  {
+    res.Reset();
+    return;
+  }
+
   SDL_Surface * const pRez = TTF_RenderText_Solid( font.m_font, szText, fg.toSDL_Color() );
 
   if( pRez == 0 )
@@ -41,6 +47,12 @@ void DrawHQ( const Font &font, const char *szText, Color fg, Texture &res )
 {                  
   ASSERT( font.m_font != 0 );
   ASSERT( szText != 0 );
+
+  if( *szText == '\0' )
+  {
+    res.Reset();
+    return;
+  }
 
   SDL_Surface * const pRez = TTF_RenderText_Blended( font.m_font, szText, fg.toSDL_Color() );
 
