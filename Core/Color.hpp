@@ -6,7 +6,7 @@
 class Color
 {
 public:
-    Color() {}
+    Color() { set(max(), min(), max(), max()); }
     explicit Color( GLuint color ) { set_platform_value(color); }
     Color( GLubyte r, GLubyte g, GLubyte b, GLubyte a ){ set(r, g, b, a); }
     Color( GLubyte r, GLubyte g, GLubyte b ){ set(r, g, b, max()); }
