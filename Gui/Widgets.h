@@ -14,8 +14,8 @@ public:
   typedef const TPtr &TPtrParam;  
 
 public:
-  Image( Point pos, Texture::TPtrParam pTex ):
-    m_rect(pos, pTex->GetSize()), m_pTex(pTex)
+  Image( Point pos, Texture::TPtrParam pTex, Color color = Color::make_white() ):
+    m_rect(pos, pTex->GetSize()), m_pTex(pTex), m_color(color)
   {}  
 
   Image( const Rect rect, Texture::TPtrParam pTex ):
@@ -25,10 +25,12 @@ public:
   Rect GetRect() const { return m_rect; }
   void Render() const;
   void SetTexture( Texture::TPtrParam pTex ) { m_pTex = pTex; }
+  void SetColor( Color color ) { m_color = color; }
 
 private:
   Rect m_rect;
   Texture::TPtr m_pTex;
+  Color m_color;
 };
 //////////////////////////////////////////////////////////////////////////
 

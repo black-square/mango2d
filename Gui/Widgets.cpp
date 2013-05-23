@@ -6,7 +6,7 @@ namespace Gui {
 
 void Image::Render() const
 {
-  Draw( *m_pTex,  m_rect );
+  Draw( *m_pTex, m_rect, 0, m_color );
 }
 //////////////////////////////////////////////////////////////////////////
 
