@@ -10,7 +10,7 @@ public:
     explicit Color( GLuint color ) { set_platform_value(color); }
     Color( GLubyte r, GLubyte g, GLubyte b, GLubyte a ){ set(r, g, b, a); }
     Color( GLubyte r, GLubyte g, GLubyte b ){ set(r, g, b, max()); }
-   
+
     GLuint get_platform_value() const { return m_platform_value;  }
     void set_platform_value( GLuint color ) { m_platform_value = color; }
 
@@ -90,6 +90,9 @@ public:
     static Color make_magenta()  { return Color( max(), min(), max() ); }
     static Color make_yellow()   { return Color( max(), max(), min() ); }
 
+    static Color make_white_a( GLubyte a )  { return Color( max(), max(), max(), a ); } 
+    static Color make_white_af( GLfloat a )  { return Color( max(), max(), max(), floattoub(a) ); } 
+
 private:
     //static GLfixed ubtofixed( GLubyte val ) { return (PVRTF2X(val)) / max(); } 
     static GLfloat ubtofloat( GLubyte val ) { return (GLfloat(val)) / max(); } 
@@ -143,12 +146,13 @@ inline bool operator!=( const Color &c1, const Color &c2 )
     return !(c1 == c2);
 }
 
-#if 0
+
 inline void glColor( const Color &c )
 {
-    glColor4x( c.rx(), c.gx(), c.bx(), c.ax() );
+   glColor4f( c.rf(), c.gf(), c.bf(), c.af() );
 }
 
+#if 0
 inline void glColorPointer(	GLsizei stride, const Color *pointer )
 {
     STATIC_ASSERT( sizeof(Color) == 4 * sizeof(GLubyte) );    

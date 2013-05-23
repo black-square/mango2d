@@ -88,15 +88,10 @@ void Texture::Load( const char *szFile, int framesCount /*= 1*/ )
   
   LoadImpl( pSurf, framesCount );  
 }
-//////////////////////////////////////////////////////////////////////////
 
-void Draw( const Texture &tex, Point pos, int curFrame /*= 0*/ )
-{
-  Draw( tex, Rect( pos, tex.m_size ), curFrame );
-}
 //////////////////////////////////////////////////////////////////////////
 template< class TexMatrixStrategyT >
-inline void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat )
+inline void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat, Color color )
 {
   ASSERT( tex.m_hTex != Texture::INVALID_TEX_HANDLE );
 
@@ -105,6 +100,9 @@ inline void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT m
   glMatrixMode( GL_TEXTURE );
   glLoadIdentity();
   matrixStrat( tex );
+
+  glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+  glColor( color );
 
   glBegin(GL_QUADS);
     glTexCoord2i(0, 0); glVertex3i(rect.x1, rect.y1, 0);
@@ -151,13 +149,19 @@ private:
 }; 
 //////////////////////////////////////////////////////////////////////////
 
-void Draw( const Texture &tex, const Rect &rect, int curFrame /*= 0*/ )
+void Draw( const Texture &tex, Point pos, int curFrame /*= 0*/, Color color /*= Color::make_white()*/ )
 {
-  DrawImpl( tex, rect, Texture::FrameMatrixStrat(curFrame) );
+  Draw( tex, Rect( pos, tex.m_size ), curFrame, color );
+}
+//////////////////////////////////////////////////////////////////////////
+
+void Draw( const Texture &tex, const Rect &rect, int curFrame /*= 0*/, Color color /*= Color::make_white()*/ )
+{
+  DrawImpl( tex, rect, Texture::FrameMatrixStrat(curFrame), color );
 }
 /////////////////////////////////////////////////////////////////////
 
-void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect )
+void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect, Color color /*= Color::make_white()*/ )
 {
-  DrawImpl( tex, destRect, Texture::RectMatrixStrat(texRect) );  
+  DrawImpl( tex, destRect, Texture::RectMatrixStrat(texRect), color );  
 }

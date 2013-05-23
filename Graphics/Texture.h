@@ -35,16 +35,16 @@ public:
   Size GetSize() const { return m_size; }
   bool IsValid() const { return m_hTex != INVALID_TEX_HANDLE; } 
 
-  friend void Draw( const Texture &tex, Point pos, int curFrame = 0 );
-  friend void Draw( const Texture &tex, const Rect &rect, int curFrame = 0 );
-  friend void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect );
+  friend void Draw( const Texture &tex, Point pos, int curFrame = 0, Color color = Color::make_white() );
+  friend void Draw( const Texture &tex, const Rect &rect, int curFrame = 0, Color color = Color::make_white() );
+  friend void Draw( const Texture &tex, const Rect &texRect, const Rect &destRect, Color color = Color::make_white() );
 
 private:
   struct FrameMatrixStrat;
   struct RectMatrixStrat;
 
   template< class TexMatrixStrategyT >
-  friend void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat );
+  friend void DrawImpl( const Texture &tex, const Rect &rect, TexMatrixStrategyT matrixStrat, Color color );
 
 private:
   std::pair<int, int> GetTexMode( const SDL_Surface *pSurf ) const;

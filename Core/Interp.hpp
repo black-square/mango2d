@@ -8,6 +8,7 @@ inline VecT Lerp( const VecT &left, const VecT &right, SclrT k )
 }
 //////////////////////////////////////////////////////////////////////////
 
+//Cheap sinus(x) approximation 
 template <typename T>
 inline T SerpStepFactor( T k )
 {
@@ -21,6 +22,13 @@ template <typename T>
 inline T SquaredStepFactor( T k )
 {
   return k * k;
+}
+//////////////////////////////////////////////////////////////////////////
+
+template <typename T>
+inline T CubicStepFactor( T k )
+{
+  return k * k * k;
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -76,10 +84,51 @@ private:
 //////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-inline T CubicStepFactor( T k )
+class ThreePointStepFactor
 {
-  return k * k * k;
-}
+public:
+  ThreePointStepFactor( T left, T middle, T right )
+  { 
+    const T allPoints[] = { left, middle, right };  
+    m_minmax = Deref( boost::minmax_element(allPoints, allPoints + ARRAY_SIZE(allPoints)) );
+    m_c0 = left;
+    m_c2 = -11*left + 16*middle -  5*right; 
+    m_c3 =  18*left - 32*middle + 14*right; 
+    m_c4 =  -8*left + 16*middle -  8*right;  
+  }
+  
+  T operator()( T x ) const
+  {
+    const float x2 = x * x;
+    const float val =  m_c4*x2*x2 + m_c3*x2*x + m_c2*x2 + m_c0;
+    return boost::algorithm::clamp( val, m_minmax.first, m_minmax.second );
+  }
+
+private:
+  template<class IterT>
+  static std::pair<T, T> Deref( const std::pair<IterT, IterT> &pr )
+  {
+    return std::pair<T, T>( *pr.first, *pr.second );    
+  }
+
+private:
+  //Maple:
+  //  restart;
+  //  constants:=constants, left, middle, right:
+  //  F := x -> c4 * x^4 + c3 * x^3 + c2 * x^2 + c1 * x^1 + c0:
+  //  F1 := unapply( diff(F(x), x ), x ):
+  //  Sys := { F(0) = left, F(1/2) = middle, F(1) = right, F1(0) = 0, F1(1) = 0 }:
+  //  Rez := solve(Sys);
+  //  Test := eval([eval(F(x),Rez)], {left = 0, middle = 0.3, right = 1} );
+  //  plot( Test, x=0..1, y=0..1 );
+  float m_left;
+  float m_right;
+  float m_c0;
+  float m_c2;
+  float m_c3;
+  float m_c4;
+  std::pair<T, T> m_minmax;
+};
 //////////////////////////////////////////////////////////////////////////
 
 template <typename T>
@@ -106,7 +155,7 @@ inline T SmoothDampStepFactor( T k )
 }
 //////////////////////////////////////////////////////////////////////////
 
-//Cheap approximation of sinus(x) interpolation
+//Cheap sinus(x)  interpolation
 template <typename VecT, typename SclrT>
 inline VecT Serp( const VecT &left, const VecT &right, SclrT k )
 {
