@@ -18,8 +18,8 @@ public:
     m_rect(pos, pTex->GetSize()), m_pTex(pTex), m_color(color)
   {}  
 
-  Image( const Rect rect, Texture::TPtrParam pTex ):
-    m_rect(rect), m_pTex(pTex)
+  Image( const Rect rect, Texture::TPtrParam pTex, Color color = Color::make_white() ):
+    m_rect(rect), m_pTex(pTex), m_color(color)
   {}  
  
   Rect GetRect() const { return m_rect; }
