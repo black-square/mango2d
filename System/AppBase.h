@@ -1,8 +1,7 @@
 //==============================================================================
 #ifndef _CEVENT_H_
-	#define _CEVENT_H_
+#define _CEVENT_H_
 
-#include <SDL.h>
 #include <boost/chrono/system_clocks.hpp>
 
 class GlobalInitHelper

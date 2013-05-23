@@ -37,7 +37,7 @@ void MakeExplosion( ParticlesManager &pm, Point pos, Texture::TPtrParam pTex )
 {
   Particle::Param rgParams[4];
 
-  const float scale = 2.5;
+  const float scale = 2.5f;
   const float lt = 0.3f;
   const float dl = 0.01f;
   const float alpha = 0.9f;
