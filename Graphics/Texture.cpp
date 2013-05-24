@@ -51,7 +51,7 @@ void Texture::LoadImpl( SDL_Surface *pSurf, int framesCount )
   
   ASSERT( framesCount > 0 );
   m_framesCount = framesCount;  
-  m_size.set( pSurf->w / m_framesCount, pSurf->h );   
+  m_size.set( pSurf->w, pSurf->h );   
 
   glGenTextures( 1, &m_hTex );
   ASSERT( glGetError() == GL_NO_ERROR );
@@ -151,7 +151,7 @@ private:
 
 void Draw( const Texture &tex, Point pos, int curFrame /*= 0*/, Color color /*= Color::make_white()*/ )
 {
-  Draw( tex, Rect( pos, tex.m_size ), curFrame, color );
+  Draw( tex, Rect( pos, tex.GetSize()), curFrame, color );
 }
 //////////////////////////////////////////////////////////////////////////
 

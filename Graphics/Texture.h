@@ -1,7 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "Core/Color.hpp"
+#include "Color.hpp"
 
 namespace Detail
 {
@@ -32,7 +32,7 @@ public:
   void Reset();
   void Load( const char *szFile, int framesCount = 1 );
 
-  Size GetSize() const { return m_size; }
+  Size GetSize() const { return Size( m_size.w / m_framesCount, m_size.h ); }
   bool IsValid() const { return m_hTex != INVALID_TEX_HANDLE; } 
 
   friend void Draw( const Texture &tex, Point pos, int curFrame = 0, Color color = Color::make_white() );
