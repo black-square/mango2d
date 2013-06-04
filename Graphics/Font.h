@@ -27,9 +27,6 @@ public:
 
   friend void Draw( const Font &font, const char *szText, Color fg, Texture &res );
   friend void DrawHQ( const Font &font, const char *szText, Color fg, Texture &res );
-
-private:
-  
 };
 
 #endif // Font_h__

@@ -25,18 +25,13 @@ public:
   void Start( TimeT time ) { ASSERT(time >= 0); curTime = totalTime = time; }
    
   //Перезапустить со значением от предыдущего вызова Start
-  void Start() { ASSERT(time >= 0); curTime = totalTime; }
+  void Start() { ASSERT(totalTime != GetUndef()); curTime = totalTime; }
 
   //Остановить таймер
   void Stop() { curTime = GetUndef(); }
     
   //Запущен ли таймер в текущий момент и время срабатывания ещё не наступило
   bool IsInProgress() const { return curTime != GetUndef(); }
-   
-  //Установить время сохраненное в предыдущем вызове Start, что позволяет вместо 
-  //в дальнейшем вместо Start вызвать Restart
-  //Эквивалентно Start(time); Stop();
-  void SetTotalTime( TimeT time ) { ASSERT(time >= 0); totalTime = time;  } 
   
   //Время, на которое был запущен таймер в последний раз
   TimeT GetTotalTime() const { return totalTime; }

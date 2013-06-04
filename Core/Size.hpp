@@ -50,31 +50,6 @@ inline bool operator != ( const SizeBase<T> &a, const SizeBase<T> &b )
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////////////////
-// Векторные операции над точкой
-///////////////////////////////////////////////////////////////////////////////
-
-//Скалярное произведение
-template< class T >
-inline T vecDotProduct( const SizeBase<T> &vec1, const SizeBase<T> &vec2 ) 
-{
-  return vec1.w * vec2.w + vec1.h * vec2.h;
-}
-
-//Длина вектора в квадрате
-template< class T >
-inline T vecLengthSquared( const SizeBase<T> &vec ) 
-{
-  return vec.w * vec.w + vec.h * vec.h;
-}
-
-//Длина вектора
-template< class T >
-inline T vecLength( const SizeBase<T> &vec ) 
-{
-  return sqrt_t( vecLengthSquared(vec) );
-}
-
 template< class T >
 inline SizeBase<T> minEachDim( const SizeBase<T> &a, const SizeBase<T> &b ) 
 {
@@ -92,13 +67,6 @@ inline SizeBase<T> maxEachDim( const SizeBase<T> &a, const SizeBase<T> &b )
     std::max(a.w, b.w),
     std::max(a.h, b.h)
     );
-}
-//////////////////////////////////////////////////////////////////////////////////////
-
-template< class T >
-inline T manhattanDistance( const SizeBase<T> &a, const SizeBase<T> &b ) 
-{
-  return std::abs(a.w - b.w) + std::abs(a.h - b.h);
 }
 //////////////////////////////////////////////////////////////////////////////////////
 

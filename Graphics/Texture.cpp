@@ -81,7 +81,10 @@ void Texture::Load( const char *szFile, int framesCount /*= 1*/ )
   if( boost::algorithm::ends_with(szFile, ".bmp") )
     pSurf = SDL_LoadBMP(szFile);
   else
-    pSurf = IMG_Load(szFile);
+  {
+    //This function makes texture prepared for premultiplied alpha blending only on MacOS!
+    pSurf = IMG_Load(szFile);  
+  }
     
   if( pSurf == 0 ) 
     LOG_FATAL( FMT("Texture loading error: %s") % szFile ); 

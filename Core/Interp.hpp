@@ -60,7 +60,7 @@ private:
     //  ResultFormula1 := factor(eval(F(x),solve(Sys)));
     //  G := x -> C2 * x^2 + C1 * x^1 + C0:
     //  Sys := { G(B) = 1, G(1) = 1, G(B + (1 - B)/2) = V }:
-    //  ResultFormula2 := eval(F(x),solve(Sys));
+    //  ResultFormula2 := eval(G(x),solve(Sys));
     //  Test := eval([ResultFormula1, ResultFormula2], {V = 9/10, B = 4/5} );
     //  plot( Test, x=0..1, y=0..1 );
     m_bouncePos = b;
