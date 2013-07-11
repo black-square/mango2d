@@ -115,9 +115,9 @@ void AppBase::MainLoop()
 }
 //////////////////////////////////////////////////////////////////////////
 
-int AppBase::Execute( Point screenSize )
+int AppBase::Execute( Size screenSize )
 {
-  SDL_Surface *pDisplay = SDL_SetVideoMode( screenSize.x, screenSize.y, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL );
+  SDL_Surface *pDisplay = SDL_SetVideoMode( screenSize.w, screenSize.h, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL );
 
   if( pDisplay == 0 )
     LOG_FATAL( "SDL_SetVideoMode error" ); 
@@ -141,11 +141,11 @@ int AppBase::Execute( Point screenSize )
   glClearColor(0, 0, 0, 0);
   glClearDepth(1.0f);
   
-  glViewport(0, 0, screenSize.x, screenSize.y);
+  glViewport(0, 0, screenSize.w, screenSize.h);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glOrtho(0, screenSize.x,screenSize.y, 0, 1, -1);
+  glOrtho(0, screenSize.w,screenSize.h, 0, 1, -1);
   
   glEnable( GL_TEXTURE_2D );
   glEnable( GL_BLEND );

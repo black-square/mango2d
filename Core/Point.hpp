@@ -161,6 +161,14 @@ inline PointBase<T> abs( const PointBase<T> &a )
     std::abs(a.y)
   );
 }
+//////////////////////////////////////////////////////////////////////////////////////
+
+template< class U, class T >
+inline PointBase<typename U::TValueType> round( const PointBase<T> &a ) 
+{
+  typedef typename U::TValueType TDst;
+  return PointBase<TDst>( static_cast<TDst>(a.x + 0.5), static_cast<TDst>(a.y + 0.5) );
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 typedef PointBase<int> Point;

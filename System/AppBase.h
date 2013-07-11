@@ -15,7 +15,7 @@ public:
 class AppBase: private GlobalInitHelper 
 {
 public:
-  int Execute( Point screenSize );
+  int Execute( Size screenSize );
 
 protected:
   virtual void OnInit() {}
