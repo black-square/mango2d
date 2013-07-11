@@ -92,6 +92,8 @@ public:
 
     static Color make_white_a( GLubyte a )  { return Color( max(), max(), max(), a ); } 
     static Color make_white_af( GLfloat a )  { return Color( max(), max(), max(), floattoub(a) ); } 
+    
+    friend Color change_a( Color c, GLubyte a )  { return Color( c.r(), c.g(), c.b(), a ); } 
 
 private:
     //static GLfixed ubtofixed( GLubyte val ) { return (PVRTF2X(val)) / max(); } 
