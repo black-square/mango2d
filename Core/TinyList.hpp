@@ -384,8 +384,8 @@ public:
     void erase( T *pItem ) { erase_impl( pItem ); }
     void erase( iterator pos ) { erase_impl( pos.m_pCur ); }
 
-	T *erase_ptr( T *pItem ) { erase( pItem ); return *pItem; }
-	T *erase_ptr( iterator pos ) { T &rez = *pos; erase( pos ); return &rez; }
+	  T *erase_ptr( T *pItem ) { erase( pItem ); return *pItem; }
+	  T *erase_ptr( iterator pos ) { T &rez = *pos; erase( pos ); return &rez; }
 
     bool empty() const 
     { 
@@ -397,6 +397,14 @@ public:
     {   
         DEBUG_OP( clearAllLinksFlag() );
         reset();
+    }
+
+    void swap( TinyList &other )
+    {
+      changeBase( &other.m_base );
+      other.changeBase( &m_base );
+      std::swap( m_base.pNext, other.m_base.pNext );
+      std::swap( m_base.pPrev, other.m_base.pPrev );
     }
 
     //Если ли в списке элемент pNode
@@ -446,6 +454,14 @@ private:
     void clearAllLinksFlag()
     {
         while( !empty() ) pop_front();
+    }
+
+    void changeBase( TNode *pNewBase )
+    {
+      //Временная переменная помогает корректно обработать пустой список
+      TNode * const pNextTmp = m_base.pNext;
+      m_base.pPrev->pNext = pNewBase;
+      pNextTmp->pPrev = pNewBase;
     }
 
 private:
