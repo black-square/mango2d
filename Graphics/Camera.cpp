@@ -45,6 +45,7 @@ void Camera::SetTransform()
 
 void Camera::RestoreTransform()
 {
+  glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
 

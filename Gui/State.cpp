@@ -42,6 +42,8 @@ void State::Update()
 
 void State::Render( float deltaTime ) const 
 {
+  OnRenderBelow( deltaTime );
+
   BOOST_FOREACH( IWidget::TPtrParam p, m_widgets )
     p->Render();
 

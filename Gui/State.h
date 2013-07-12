@@ -49,6 +49,7 @@ private:
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
   virtual void OnUpdate() {}
   virtual void OnRender( float deltaTime ) const {}
+  virtual void OnRenderBelow( float deltaTime ) const {}
 
 private:
   typedef std::vector<IWidget::TPtr> TWidgets;
