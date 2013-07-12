@@ -11,31 +11,55 @@ class DiscretePath
 public:
   DiscretePath(): m_error(0) {}
 
-  void Start( const PointBase<T> &from, const PointBase<T> &to )
+  void Start( const PointBase<T> &dstPos )
   {
-    m_delta = abs(to - from);
-    m_sign.set( from.x < to.x ? 1 : -1, from.y < to.y ? 1 : -1 );
+    m_nextPos = m_pos;
+    m_dstPos = dstPos;
+    m_delta = abs(m_dstPos - m_pos);
+    m_sign.set( m_pos.x < m_dstPos.x ? 1 : -1, m_pos.y < m_dstPos.y ? 1 : -1 );
     m_error = m_delta.x - m_delta.y;
+    CalcNext();
   }
 
-  void Next( PointBase<T> &cur )
+  void Step()
+  {
+    m_pos = m_nextPos;
+    CalcNext();  
+  }
+
+  void SetPos( const PointBase<T> &pos )
+  {
+    m_pos = pos;
+    m_nextPos = pos;
+    m_dstPos = pos;
+  } 
+
+  const PointBase<T> &GetPos() const { return m_pos; }
+  const PointBase<T> &GetNextPos() const { return m_nextPos; }
+  const PointBase<T> &GetDstPos() const { return m_dstPos; }
+
+private:
+  void CalcNext()
   {
     const T error2 = m_error * 2; 
     
     if( error2 > -m_delta.y ) 
     {
       m_error -= m_delta.y;
-      cur.x += m_sign.x;
+      m_nextPos.x += m_sign.x;
     }
 
     if( error2 < m_delta.x ) 
     {
       m_error += m_delta.x;
-      cur.y += m_sign.y;
+      m_nextPos.y += m_sign.y;
     }
   }
 
 private:
+  PointBase<T> m_pos;
+  PointBase<T> m_nextPos;
+  PointBase<T> m_dstPos;
   PointBase<T> m_delta;
   PointBase<T> m_sign;
   T m_error;  
