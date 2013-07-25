@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Particle.h"
-#include "Core/Interp.hpp"
+#include "Engine/Core/Interp.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 

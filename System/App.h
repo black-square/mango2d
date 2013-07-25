@@ -2,7 +2,7 @@
 #define _CAPP_H_
 
 #include "AppBase.h"
-#include "Gui/State.h"
+#include "Engine/Gui/State.h"
 
 //==============================================================================
 class App: public AppBase, private Gui::IStateManager 

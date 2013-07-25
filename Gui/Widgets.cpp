@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Gui/Widgets.h"
-#include "Audio/SoundManager.h"
+#include "Widgets.h"
+#include "Engine/Audio/SoundManager.h"
 
 namespace Gui {
 

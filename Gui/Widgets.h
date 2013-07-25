@@ -1,9 +1,9 @@
 #ifndef GuiWidgets_h__
 #define GuiWidgets_h__
 
-#include "Gui/State.h"
-#include "Graphics/Texture.h"
-#include "Graphics/Font.h"
+#include "Engine/Gui/State.h"
+#include "Engine/Graphics/Texture.h"
+#include "Engine/Graphics/Font.h"
 
 namespace Gui {
 
