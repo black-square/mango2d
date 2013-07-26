@@ -3,7 +3,7 @@
 #include "App.h"
 #include "GuiStates/StateMain.h"
 #include "Engine/Audio/SoundManager.h"
-#include "GuiStates/LogicConsts.h"
+#include "GameConsts.h"
 
 void App::OnInit() 
 {

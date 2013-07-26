@@ -16,5 +16,5 @@ int SDL_main(int argc, char *argv[])
   
   App theApp;
 
-  return theApp.Execute( Point(755, 600) );
+  return theApp.Execute( Size(755, 600) );
 }

@@ -2,7 +2,7 @@
 
 rem call PostBuild.bat "$(Configuration)" "$(OutputPath)"
 
-set CUR_DIR=%~dp0
+set CUR_DIR=%~dp0\..
 set CONF=%~1
 set OUT_DIR=%~2
 

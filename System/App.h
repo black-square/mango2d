@@ -3,7 +3,7 @@
 
 #include "AppBase.h"
 #include "Engine/Gui/State.h"
-#include "Core/TimeHelpers.hpp"
+#include "Engine/Core/TimeHelpers.hpp"
 
 //==============================================================================
 class App: public AppBase, private Gui::IStateManager 

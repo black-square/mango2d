@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Camera.h"
-#include "Core/Interp.hpp"
+#include "Engine/Core/Interp.hpp"
 
 Camera::Camera( SizeF fieldSize, SizeF viewportSize ):
   m_fieldSize(fieldSize), m_viewportSize(viewportSize)
