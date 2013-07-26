@@ -1,9 +1,7 @@
-//==============================================================================
 #include "stdafx.h"
 #include "App.h"
-#include "GuiStates/StateMain.h"
 #include "Engine/Audio/SoundManager.h"
-#include "GameConsts.h"
+#include "Engine/IEngineParams.h"
 
 void App::OnInit() 
 {
@@ -11,7 +9,7 @@ void App::OnInit()
   InitGlobalSoundManager();
   SetMainState(); 
 
-  m_updateTimer.Start( Editor::LogicUpdateTime() );
+  m_updateTimer.Start( EngineParams()->GetUpdateTimeDelta() );
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -23,14 +21,14 @@ void App::OnCleanup()
 
 void App::OnUpdate( float deltaTime ) 
 {
-  if( m_updateTimer.TickWithRestartNonStop(deltaTime) )
-  {
   if( m_pNextGuiState )
   {
     m_pGuiState = m_pNextGuiState;
     m_pNextGuiState.reset();
   }
 
+  if( m_updateTimer.TickWithRestartNonStop(deltaTime) )
+  {
     m_pGuiState->Update();
   }
 }
@@ -84,7 +82,7 @@ void App::SetState( Gui::State::TPtrParam p )
 
 void App::SetMainState()
 {
-  SetState( boost::make_shared<GuiStateMain>() );
+  SetState( EngineParams()->MakeMainState() );
 }
 
 
