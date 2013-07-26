@@ -108,7 +108,7 @@ void AppBase::MainLoop()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    OnRender();
+    OnRender( deltaTime );
 
     SDL_GL_SwapBuffers();
   }

@@ -34,18 +34,18 @@ void State::KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void State::Update( float deltaTime )
+void State::Update()
 {
-  OnUpdate( deltaTime );
+  OnUpdate();
 }
 //////////////////////////////////////////////////////////////////////////
 
-void State::Render() const 
+void State::Render( float deltaTime ) const 
 {
   BOOST_FOREACH( IWidget::TPtrParam p, m_widgets )
     p->Render();
 
-  OnRender();
+  OnRender( deltaTime );
 }
 //////////////////////////////////////////////////////////////////////////
 } //namespace Gui

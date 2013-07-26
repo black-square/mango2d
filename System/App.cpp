@@ -3,12 +3,15 @@
 #include "App.h"
 #include "GuiStates/StateMain.h"
 #include "Engine/Audio/SoundManager.h"
+#include "GuiStates/LogicConsts.h"
 
 void App::OnInit() 
 {
   SDL_WM_SetCaption("The Game", "The Game");
   InitGlobalSoundManager();
   SetMainState(); 
+
+  m_updateTimer.Start( Editor::LogicUpdateTime() );
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -20,13 +23,16 @@ void App::OnCleanup()
 
 void App::OnUpdate( float deltaTime ) 
 {
+  if( m_updateTimer.TickWithRestartNonStop(deltaTime) )
+  {
   if( m_pNextGuiState )
   {
     m_pGuiState = m_pNextGuiState;
     m_pNextGuiState.reset();
   }
 
-  m_pGuiState->Update( deltaTime );
+    m_pGuiState->Update();
+  }
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -56,9 +62,9 @@ void App::OnMouseMove( Point pos )
 }
 //////////////////////////////////////////////////////////////////////////
 
-void App::OnRender() const
+void App::OnRender( float deltaTime ) const
 {
-  m_pGuiState->Render();
+  m_pGuiState->Render( deltaTime );
 }
 //////////////////////////////////////////////////////////////////////////
 

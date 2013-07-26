@@ -3,6 +3,7 @@
 
 #include "AppBase.h"
 #include "Engine/Gui/State.h"
+#include "Core/TimeHelpers.hpp"
 
 //==============================================================================
 class App: public AppBase, private Gui::IStateManager 
@@ -15,13 +16,14 @@ public:
   void OnMouseMove( Point pos );
   void OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode);
   void OnUpdate( float deltaTime );
-  void OnRender() const;
+  void OnRender( float deltaTime ) const;
   void SetState( Gui::State::TPtrParam p );
   void SetMainState();
 
 private:
   Gui::State::TPtr m_pGuiState;
   Gui::State::TPtr m_pNextGuiState;
+  SimpleTimer<float> m_updateTimer;
 };
 
 //==============================================================================
