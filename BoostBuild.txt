@@ -1,0 +1,13 @@
+Build BOOST on Mac for LLVM GCC 4.2:
+  ./b2 --with-filesystem --with-chrono --toolset=clang --layout=tagged link=static stage debug release
+
+Build BOOST on Mac for Apple LLVM compiler 4.2:
+  ./b2 -a --with-filesystem --with-chrono --layout=tagged --toolset=clang link=static threading=multi cxxflags="-arch i386 -arch x86_64 -stdlib=libc++ -std=c++11 -mmacosx-version-min=10.7 -fvisibility-inlines-hidden" stage debug release
+
+Usefull flags:
+   ./b2 -a: rebuild all
+   ./b2 -d+2: print command before execution
+   ./b2 cxxflags="-v": print compiler info (add it to both XCode properties and b2 command line then compare)
+
+Build BOOST on Windows:
+  ./b2  --with-filesystem --with-chrono link=static stage debug release
