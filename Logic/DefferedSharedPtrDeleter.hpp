@@ -6,7 +6,7 @@
 //destruction until Update() method finishes, but week pointers become expired 
 //immediately.
 
-template<class T, class TinyListTagT>
+template<class GameObjectT, class TinyListTagT>
 class DefferedSharedPtrDeleter: boost::noncopyable
 {
 public:
@@ -56,7 +56,7 @@ public:
   }
 
 protected:
-  bool CheckPtrDeleter( const boost::shared_ptr<T> &p ) const
+  bool CheckPtrDeleter( const boost::shared_ptr<GameObjectT> &p ) const
   {
     Deleter *const pDel = boost::get_deleter<Deleter>(p);
     return pDel != 0 && pDel->m_pParent == this; 
@@ -79,7 +79,7 @@ private:
   public:
     explicit Deleter( DefferedSharedPtrDeleter *pParent ): m_pParent(pParent) {}
 
-    void operator()( T *p ) const
+    void operator()( GameObjectT *p ) const
     {
       m_pParent->m_destroyList.push_back(p);
     }
@@ -90,7 +90,7 @@ private:
   };
 
 private:
-  TinyList<T, TinyListTagT> m_destroyList;    
+  TinyList<GameObjectT, TinyListTagT> m_destroyList;    
 };
 
 

@@ -107,8 +107,8 @@ namespace tiny_list_detail
 
     private: 
         friend class TIteratorBase<const T, TagT, const NodeT>;
-        template< class, class > friend class TinySList;
-        template< class, class > friend class TinyList;
+        template< class, class > friend class ::TinySList;
+        template< class, class > friend class ::TinyList;
         NodeT *m_pCur;
     };    
     
@@ -121,7 +121,7 @@ namespace tiny_list_detail
 // списках (Объект может несколько раз наследоваться от TinySLink с 
 // разными TagT). TagT нигде не инстанцируется и может быть произвольным.
 ///////////////////////////////////////////////////////////////////////////////
-template< class TagT = null_type >
+template< class TagT = int>
 struct TinySLink: boost::noncopyable
 {
     TinySLink()
@@ -153,7 +153,7 @@ private:
 //      TagT - метка списка, для поддержки хранения элементов в нескольких 
 //             списках одновременно
 ///////////////////////////////////////////////////////////////////////////////
-template< class T, class TagT = null_type >
+template< class T, class TagT = int >
 class TinySList: boost::noncopyable
 {
     typedef TinySLink<TagT> TNode;
@@ -258,7 +258,7 @@ private:
         ASSERT( pNode == &m_base || hasElement(pNode) ); //При вызове pop_front() pPos == &m_base 
         ASSERT( pNode->pNext != &m_base );
 
-        DEBUG_VARIABLE( TNode * const pTmp = pNode->pNext );
+        DEBUG_VAR( TNode * const pTmp = pNode->pNext );
         pNode->pNext = pNode->pNext->pNext;
         DEBUG_OP( pTmp->clearLinkFlag() );
     }
@@ -293,7 +293,7 @@ private:
 // списках (Объект может несколько раз наследоваться от TinyLink с 
 // разными TagT). TagT нигде не инстанцируется и может быть произвольным.
 ///////////////////////////////////////////////////////////////////////////////
-template< class TagT = null_type >
+template< class TagT = int >
 struct TinyLink: boost::noncopyable
 {
     TinyLink()
@@ -345,7 +345,7 @@ private:
 //      TagT - метка списка, для поддержки хранения элементов в нескольких 
 //             списках одновременно
 ///////////////////////////////////////////////////////////////////////////////
-template< class T, class TagT = null_type >
+template< class T, class TagT = int >
 class TinyList: boost::noncopyable
 {
     typedef TinyLink<TagT> TNode;

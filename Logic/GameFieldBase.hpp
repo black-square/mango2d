@@ -16,7 +16,7 @@ public:
   typedef typename TGameObject::TPtrParam TGOPtrParam;
   typedef typename GameObjectT::TFieldPos TFieldPos;
   typedef typename TFieldPos::TValueType TFieldCoord;
-  typedef typename SizeBase<TFieldCoord> TFieldSize;
+  typedef SizeBase<TFieldCoord> TFieldSize;
 
 public:
   explicit GameFieldBase( TFieldSize size ): 
@@ -57,7 +57,7 @@ public:
   {
     ASSERT( pObj );
     ASSERT( !Get(x, y) );
-    ASSERT( CheckPtrDeleter(pObj) );
+    ASSERT( this->CheckPtrDeleter(pObj) );
 
     m_field(x, y) = pObj;
     pObj->SetPos( TFieldPos(x, y) );
@@ -97,12 +97,12 @@ public:
     return m_field.GetSize();
   }
 
-  template<class GameObjectT, class Fnc>
-  friend void ForEachSafeDelete( const GameFieldBase<GameObjectT> &field, Fnc fnc );
+  template<class GameObjectT2, class Fnc>
+  friend void ForEachSafeDelete( const GameFieldBase<GameObjectT2> &field, Fnc fnc );
 
   void DestroyDeleatedObjects()
   {
-    DestroyAll();
+    this->DestroyAll();
   }
 
 private:
@@ -124,7 +124,7 @@ GameFieldBase<GameObjectT>::~GameFieldBase()
 template<class GameObjectT>
 void GameFieldBase<GameObjectT>::Clear()
 {
-  ASSERT( IsDestroyListEmpty() );
+  ASSERT( this->IsDestroyListEmpty() );
   ForEach(GetSize(), [this]( TFieldPos pos )
   {
     if( Get(pos) )
@@ -144,7 +144,7 @@ void ForEachSafeDelete( const GameFieldBase<GameObjectT> &field, Fnc fnc )
 
   while( !field.m_allObjects.empty() )
   {
-    IGameObject * const pObj = field.m_allObjects.pop_front_ptr();
+    GameObjectT * const pObj = field.m_allObjects.pop_front_ptr();
     newList.push_back( pObj );
 
     ASSERT( field.Get(pObj->GetPos()).get() == pObj );
