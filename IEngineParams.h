@@ -9,7 +9,7 @@ struct IEngineParams
   virtual ~IEngineParams() {}
 
   virtual Size GetInitialScreenSize() const { return Size(800, 600); }
-  virtual float GetUpdateTimeDelta() const { return 0.1f; }
+  virtual float GetUpdateStepTimeDelta() const { return 0.1f; }
   virtual Gui::State::TPtr MakeMainState() const = 0;
 };
 

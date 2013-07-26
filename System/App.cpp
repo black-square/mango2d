@@ -9,7 +9,7 @@ void App::OnInit()
   InitGlobalSoundManager();
   SetMainState(); 
 
-  m_updateTimer.Start( EngineParams()->GetUpdateTimeDelta() );
+  m_updateTimer.Start( EngineParams()->GetUpdateStepTimeDelta() );
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -27,9 +27,11 @@ void App::OnUpdate( float deltaTime )
     m_pNextGuiState.reset();
   }
 
+  m_pGuiState->Update( deltaTime );
+
   if( m_updateTimer.TickWithRestartNonStop(deltaTime) )
   {
-    m_pGuiState->Update();
+    m_pGuiState->UpdateStep();
   }
 }
 //////////////////////////////////////////////////////////////////////////

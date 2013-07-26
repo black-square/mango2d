@@ -33,7 +33,8 @@ public:
   void LButtonUp( Point pos );
   void MouseMove( Point pos );
   void KeyDown( SDLKey sym, SDLMod mod, Uint16 unicode );
-  void Update();
+  void UpdateStep();
+  void Update( float deltaTime );
   void Render( float deltaTime ) const;
 
   IStateManager *GetManager() const { ASSERT( m_pManager != 0 ); return m_pManager; }
@@ -47,7 +48,8 @@ private:
   virtual void OnLButtonUp( Point pos ) {}
   virtual void OnMouseMove( Point pos ) {}
   virtual void OnKeyDown( SDLKey sym, SDLMod mod, Uint16 unicode ) {}
-  virtual void OnUpdate() {}
+  virtual void OnUpdateStep() {}
+  virtual void OnUpdate( float deltaTime ) {}
   virtual void OnRender( float deltaTime ) const {}
   virtual void OnRenderBelow( float deltaTime ) const {}
 
