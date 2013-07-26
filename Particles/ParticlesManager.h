@@ -18,9 +18,6 @@ private:
 private:
   TParticles m_particles;
 };
-//////////////////////////////////////////////////////////////////////////
-
-void MakeExplosion( ParticlesManager &pm, Point pos, Texture::TPtrParam pTex );
 
 
 
