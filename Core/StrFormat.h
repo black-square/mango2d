@@ -1,4 +1,4 @@
-#ifndef STRFORMAT_HPP_70E3F625_C1E1_4E3F
+п»ї#ifndef STRFORMAT_HPP_70E3F625_C1E1_4E3F
 #define STRFORMAT_HPP_70E3F625_C1E1_4E3F
 
 #include <boost/format.hpp>
@@ -11,7 +11,7 @@ inline boost::format FMT( const T &str )
   return fmter;
 }
 
-//Уменьшим количество инстанцируемых функций
+//РЈРјРµРЅСЊС€РёРј РєРѕР»РёС‡РµСЃС‚РІРѕ РёРЅСЃС‚Р°РЅС†РёСЂСѓРµРјС‹С… С„СѓРЅРєС†РёР№
 template<size_t N>
 inline boost::format FMT( const char (&msg)[N] )
 {
@@ -19,7 +19,7 @@ inline boost::format FMT( const char (&msg)[N] )
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-//Преобразуем разные типы в std::string
+//РџСЂРµРѕР±СЂР°Р·СѓРµРј СЂР°Р·РЅС‹Рµ С‚РёРїС‹ РІ std::string
 inline std::string MakeString( const char *szStr )
 {
   return std::string( szStr );
