@@ -39,7 +39,8 @@ void Camera::SetTransform()
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
-  glTranslatef( -m_curPos.x, -m_curPos.y, 0 );
+  //Rounding camera position to provide matching between texture and screen pixels
+  glTranslatef( -std::floor(m_curPos.x + 0.5f), -std::floor(m_curPos.y + 0.5f), 0 );
 }
 //////////////////////////////////////////////////////////////////////////
 
