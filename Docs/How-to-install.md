@@ -33,3 +33,31 @@ Please have a look to [this page](Building-BOOST.md)
 
 
 ## How to create a new project
+
+1. Create new dir for your project (see `<your_project_dir>` above)
+2. `git init .`
+3. `git submodule add -b master https://github.com/black-square/mango2d.git Engine`
+4. Copy files from [demo project] (https://github.com/black-square/GemsGame):
+
+   ```
+   MacProject.xcodeproj\*
+   MacResources\*
+   .gitignore
+   EngineParams.cpp
+   stdafx.cpp
+   project.vcxproj.filters
+   Resource.h
+   stdafx.h
+   targetver.h
+   main.ico
+   small.ico
+   project.rc
+   project.sln
+   project.vcxproj.user
+   project.vcxproj
+   ```
+5. Launch `project.sln` on Windows or `MacProject.xcodeproj` on Mac
+6. Correct source files list added to project (Sometimes it is much easier to exclude all 
+   files and then to add them from scratch)
+7. Change `struct EngineParamsImpl` implementation
+8. Rename `Project` in MSVC on Windows or `Target` in XCODE on Mac as you want
