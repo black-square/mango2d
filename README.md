@@ -29,11 +29,18 @@ but uses only **OpenGL** for rendering.
 
 ### Demo
 #### GemsGame
+
+Puzzle game where you need to match three gems of the same color in a row.
+
 ![GemsGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/GemsGame2.jpg)
 
-**[More info and Mac/Win binaries links >>>](https://github.com/black-square/GemsGame/README.md)**
+**[More info and Mac/Win binaries links >>>](https://github.com/black-square/GemsGame/blob/master/README.md)**
 
 #### TagGame
+
+Grid-based game where you need to decoy enemies to the traps but at the same time you need to avoid 
+situation when they touch hero.
+
 ![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
 
-**[More info and Mac/Win binaries links >>>](https://github.com/black-square/TagGame/README.md)**
+**[More info and Mac/Win binaries links >>>](https://github.com/black-square/TagGame/blob/master/README.md)**
