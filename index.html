@@ -31,58 +31,63 @@
           <h1>
 <a name="mango2d" class="anchor" href="#mango2d"><span class="octicon octicon-link"></span></a>mango2d</h1>
 
-<h3>
-<a name="rapid-2d-game-prototyping-engine" class="anchor" href="#rapid-2d-game-prototyping-engine"><span class="octicon octicon-link"></span></a>Rapid 2D Game Prototyping Engine</h3>
+<h2>
+<a name="rapid-2d-game-prototyping-engine" class="anchor" href="#rapid-2d-game-prototyping-engine"><span class="octicon octicon-link"></span></a>Rapid 2D Game Prototyping Engine</h2>
 
 <p><strong>mango2d</strong> is a cross platform 2D game engine specially designed for fast 2D games prototyping. 
 It uses <strong>C++11</strong> and <a href="http://wwww.boost.org">BOOST libraries</a> to provide powerful yet easy-to-use 
 features out of the box. It is highly modulized and based on <a href="http://www.libsdl.org/">SDL Framework</a>, 
 but uses only <strong>OpenGL</strong> for rendering. </p>
 
-<h3>
-<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
 
 <ul>
 <li>Cross platform developing on Windows and Mac OS</li>
 <li><a href="http://choosealicense.com/licenses/mit/">Mit licence</a></li>
 <li>Components oriented: you can use only modules that you want</li>
+<li>Logging, common macroses, easy string formating (<code>boost::format</code> based)</li>
+<li>Powerful <code>Point</code>, <code>Rect</code>, <code>Size</code> and <code>Color</code> classes that interact with each other</li>
+<li>Many <code>interpolation functions</code> including physically reliable spring formula</li>
 <li>
-<a href="Core/Log.h">Logging</a>, <a href="Core/CommonMacros.h">common macroses</a>, 
-<a href="Core/StrFormat.h">easy string formating</a> (<code>boost::format</code> based)</li>
-<li>Powerful <a href="Core/Point.hpp">Point</a>, <a href="Core/Rect.hpp">Rect</a>, <a href="Core/Size.hpp">Size</a> and 
-<a href="Graphics/Color.hpp">Color</a> classes that interact with each other</li>
-<li>Many <a href="Core/Interp.hpp">interpolation functions</a> including physically reliable spring formula</li>
+<code>Intrusive lists</code> for fast collection manipulating without memory allocations </li>
 <li>
-<a href="Core/TinyList.hpp">Intrusive lists</a> for fast collection manipulating without memory allocations </li>
-<li>
-<a href="Graphics/Texture.h">Sprite</a> loading from common formats (PNG, JPG, TIFF) and drawing with scale, 
+<code>Sprites</code> loading from common formats (PNG, JPG, TIFF) and drawing with scale, 
 transparency and color blending. One texture can contain many frames</li>
 <li>
-<a href="Graphics/Font.h">Font</a> loading from TTF format</li>
-<li><a href="Audio/">Sound engine</a></li>
-<li><a href="Particles/">Particles engine</a></li>
+<code>Fonts</code> loading from TTF format</li>
+<li><code>Sound engine</code></li>
+<li><code>Particles engine</code></li>
 <li>
-<a href="Gui/">GUI framework</a>: collection of GUI widgets and GUI states for rapid interface development</li>
-<li>Special <code>boost::shared_ptr</code> <a href="Logic/DefferedSharedPtrDeleter.hpp">delete strategy</a> that keeps 
+<code>GUI framework</code>: collection of GUI widgets and GUI states for rapid interface development</li>
+<li>Special <code>boost::shared_ptr</code> <code>delete strategy</code> that keeps 
 object destruction until <code>Update()</code> method finishes, but weak pointers become expired immediately. 
 It simplifies AI logic</li>
 <li>etc.</li>
-</ul><h3>
-<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h3>
+</ul><p>For more information and documentation, please have a look to the
+<strong><a href="https://github.com/black-square/mango2d/blob/master/README.md">Project page</a></strong></p>
 
-<h4>
-<a name="gemsgame" class="anchor" href="#gemsgame"><span class="octicon octicon-link"></span></a>GemsGame</h4>
+<h2>
+<a name="demos" class="anchor" href="#demos"><span class="octicon octicon-link"></span></a>Demos</h2>
+
+<h3>
+<a name="gemsgame" class="anchor" href="#gemsgame"><span class="octicon octicon-link"></span></a>GemsGame</h3>
+
+<p>Puzzle game where you need to match three gems of the same color in a row.</p>
 
 <p><img src="https://raw.github.com/wiki/black-square/mango2d/img/GemsGame2.jpg" alt="GemsGame screenshot"></p>
 
-<p><strong><a href="https://github.com/black-square/GemsGame">More info &gt;&gt;&gt;</a></strong></p>
+<p><strong><a href="https://github.com/black-square/GemsGame/blob/master/README.md">More info and Mac/Win binaries links</a></strong></p>
 
-<h4>
-<a name="taggame" class="anchor" href="#taggame"><span class="octicon octicon-link"></span></a>TagGame</h4>
+<h3>
+<a name="taggame" class="anchor" href="#taggame"><span class="octicon octicon-link"></span></a>TagGame</h3>
+
+<p>Grid-based game where you need to decoy enemies to the traps but at the same time you need to avoid 
+situation when they touch hero.</p>
 
 <p><img src="https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png" alt="TagGame screenshot"></p>
 
-<p><strong><a href="https://github.com/black-square/TagGame">More info &gt;&gt;&gt;</a></strong></p>
+<p><strong><a href="https://github.com/black-square/TagGame/blob/master/README.md">More info and Mac/Win binaries links</a></strong></p>
         </section>
 
         <aside id="sidebar">
