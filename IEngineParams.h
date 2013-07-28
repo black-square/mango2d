@@ -10,7 +10,9 @@ struct IEngineParams
 
   virtual Size GetInitialScreenSize() const { return Size(800, 600); }
   virtual float GetUpdateStepTimeDelta() const { return 0.1f; }
+  virtual const char *GetWindowTitle() const { return "mango2d engine demo"; }
   virtual Gui::State::TPtr MakeMainState() const = 0;
+
 };
 
 //You have to implement this function

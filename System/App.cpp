@@ -5,7 +5,7 @@
 
 void App::OnInit() 
 {
-  SDL_WM_SetCaption("The Game", "The Game");
+  SDL_WM_SetCaption( EngineParams()->GetWindowTitle(), EngineParams()->GetWindowTitle() );
   InitGlobalSoundManager();
   SetMainState(); 
 
