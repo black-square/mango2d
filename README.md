@@ -39,12 +39,12 @@ Puzzle game where you need to match three gems of the same color in a row.
 ### TagGame
 
 Grid-based game where you need to decoy enemies to the traps but at the same time you need to avoid 
-situation when they touch hero.
+situation when they touch the hero.
 
 ![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
 
 **[More info and Mac/Win binaries links](https://github.com/black-square/TagGame/blob/master/README.md)**
 
 ## Further information
-* For more information and documentation, please have a look to 
+* For more information and documentation, please have a look at 
   **[How to install and use guide](Docs/How-to-install.md)**
