@@ -4,7 +4,16 @@
 [BOOST 1.53](http://sourceforge.net/projects/boost/files/boost/1.53.0/) is required. You can use newer versions too, 
 but you have to change include dir path in projects properties.
 
-1. Download this archive and extract it into the dir `boost_1_53_0` on the same level as source folder
+1. Download this archive and extract it into the dir `boost_1_53_0` on the same level as project source folder to 
+   obtain this dirs structure:
+
+   ```bash
+   boost_1_53_0        # BOOST sources root (boost, doc, libs, etc. folders)
+   <your_project_dir>  # Folder for your new project
+   TagGame             # mango2d demo project source dir (optional) 
+   GemsGame            # mango2d demo project source dir (optional)
+   ```
+
 2. Launch `bootstrap.bat` for Windows and `bootstrap.sh` for Mac
  
 ### Building BOOST on Mac for Apple LLVM compiler 4.2
