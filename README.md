@@ -44,3 +44,7 @@ situation when they touch hero.
 ![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
 
 **[More info and Mac/Win binaries links >>>](https://github.com/black-square/TagGame/blob/master/README.md)**
+
+### Further information
+* For more information and documentation, please have a look to 
+  **[How to install and use guide](Docs/How-to-install.md)**
