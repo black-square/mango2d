@@ -31,9 +31,9 @@ but uses only **OpenGL** for rendering.
 #### GemsGame
 ![GemsGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/GemsGame2.jpg)
 
-**[More info >>>](https://github.com/black-square/GemsGame)**
+**[More info and Mac/Win binaries links >>>](https://github.com/black-square/GemsGame/README.md)**
 
 #### TagGame
 ![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
 
-**[More info >>>](https://github.com/black-square/TagGame)**
+**[More info and Mac/Win binaries links >>>](https://github.com/black-square/TagGame/README.md)**
