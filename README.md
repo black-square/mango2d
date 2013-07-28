@@ -1,12 +1,12 @@
 # mango2d
 
-### Rapid 2D Game Prototyping Engine
+## Rapid 2D Game Prototyping Engine
 **mango2d** is a cross platform 2D game engine specially designed for fast 2D games prototyping. 
 It uses **C++11** and [BOOST libraries](http://wwww.boost.org) to provide powerful yet easy-to-use 
 features out of the box. It is highly modulized and based on [SDL Framework] (http://www.libsdl.org/), 
 but uses only **OpenGL** for rendering. 
 
-### Features
+## Features
 * Cross platform developing on Windows and Mac OS
 * [Mit licence](http://choosealicense.com/licenses/mit/)
 * Components oriented: you can use only modules that you want
@@ -27,24 +27,24 @@ but uses only **OpenGL** for rendering.
   It simplifies AI logic
 * etc.
 
-### Demo
-#### GemsGame
+## Demo
+### GemsGame
 
 Puzzle game where you need to match three gems of the same color in a row.
 
 ![GemsGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/GemsGame2.jpg)
 
-**[More info and Mac/Win binaries links >>>](https://github.com/black-square/GemsGame/blob/master/README.md)**
+**[More info and Mac/Win binaries links](https://github.com/black-square/GemsGame/blob/master/README.md)**
 
-#### TagGame
+### TagGame
 
 Grid-based game where you need to decoy enemies to the traps but at the same time you need to avoid 
 situation when they touch hero.
 
 ![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
 
-**[More info and Mac/Win binaries links >>>](https://github.com/black-square/TagGame/blob/master/README.md)**
+**[More info and Mac/Win binaries links](https://github.com/black-square/TagGame/blob/master/README.md)**
 
-### Further information
+## Further information
 * For more information and documentation, please have a look to 
   **[How to install and use guide](Docs/How-to-install.md)**
