@@ -14,7 +14,7 @@ cxxflags="-arch i386 -arch x86_64 -stdlib=libc++ -std=c++11 -mmacosx-version-min
 -fvisibility-inlines-hidden" stage debug release
 ```
 
-### ~~Building BOOST on Mac for LLVM GCC 4.2 (NOT USED)~~
+### ~~Building BOOST on Mac for LLVM GCC 4.2~~ (NOT USED)
 ```bash
 ./b2 --toolset=clang --layout=tagged link=static stage debug release
 ```
