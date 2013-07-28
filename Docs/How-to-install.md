@@ -37,7 +37,7 @@ Please have a look to [this page](Building-BOOST.md)
 1. Create new dir for your project (see `<your_project_dir>` above)
 2. `git init .`
 3. `git submodule add -b master https://github.com/black-square/mango2d.git Engine`
-4. Copy files from [demo project] (https://github.com/black-square/GemsGame):
+4. Copy these files from [demo project] (https://github.com/black-square/GemsGame):
 
    ```
    MacProject.xcodeproj\*
