@@ -10,5 +10,18 @@ mongo2d requires [SDL Framework] (http://www.libsdl.org/) with several additiona
 Please have a look to [this page](Building-BOOST.md)
 
 ## How to install SDL
+### Windows
+1. Download [SDL-devel-1.2.15-VC.zip](http://www.libsdl.org/download-1.2.php), 
+[SDL_image-devel-1.2.12-VC.zip](http://www.libsdl.org/projects/SDL_image/) and 
+[SDL_ttf-devel-2.0.11-VC.zip](http://www.libsdl.org/projects/SDL_ttf/)
+2. Extract these archives to the dir `SDL` on the same level as project source folder to obtain this dirs structure: 
+    
+    ```
+    SDL\SDL_image-1.2.12\
+    SDL\SDL_ttf-2.0.11\
+    SDL\SDL-1.2.15\
+    boost_1_53_0\
+    <your_project_dir>\
+    ```
 
 ## How to create a new project
