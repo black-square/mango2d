@@ -16,9 +16,9 @@ but uses only **OpenGL** for rendering.
   [Color](Graphics/Color.hpp) classes that interact with each other
 * Many [interpolation functions](Core/Interp.hpp) including physically reliable spring formula
 * [Intrusive lists](Core/TinyList.hpp) for fast collection manipulating without memory allocations 
-* [Sprite](Graphics/Texture.h) loading from common formats (PNG, JPG, TIFF) and drawing with scale, 
+* [Sprites](Graphics/Texture.h) loading from common formats (PNG, JPG, TIFF) and drawing with scale, 
   transparency and color blending. One texture can contain many frames
-* [Font](Graphics/Font.h) loading from TTF format
+* [Fonts](Graphics/Font.h) loading from TTF format
 * [Sound engine](Audio/)
 * [Particles engine](Particles/)
 * [GUI framework](Gui/): collection of GUI widgets and GUI states for rapid interface development
@@ -27,7 +27,7 @@ but uses only **OpenGL** for rendering.
   It simplifies AI logic
 * etc.
 
-## Demo
+## Demos
 ### GemsGame
 
 Puzzle game where you need to match three gems of the same color in a row.
