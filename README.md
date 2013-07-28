@@ -26,3 +26,14 @@ but uses only **OpenGL** for rendering.
   object destruction until `Update()` method finishes, but weak pointers become expired immediately. 
   It simplifies AI logic
 * etc.
+
+### Demo
+#### GemsGame
+![GemsGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/GemsGame2.jpg)
+
+**[More info >>>](https://github.com/black-square/GemsGame)**
+
+#### TagGame
+![TagGame screenshot](https://raw.github.com/wiki/black-square/mango2d/img/TagGame.png)
+
+**[More info >>>](https://github.com/black-square/TagGame)**
